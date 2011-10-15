@@ -14,8 +14,6 @@ App.views.Viewport = Ext.extend(Ext.Carousel, {
 					slug: song['song_id'],
 					title: song['title'],
 					artist: song['artist'],
-					songid: song['song_id'],
-					videoid: song['video_id']
 					});
                 }
                 console.log(initialItems);
@@ -39,8 +37,6 @@ App.views.Viewport = Ext.extend(Ext.Carousel, {
 								slug: json['song_id'],
 								title: json['title'],
 								artist: json['artist'],
-								songid: json['song_id'],
-								videoid: json['video_id']
 							};
 							if(this.getItems().peek().songid != item.songid){
 								me.add(item);
