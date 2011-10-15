@@ -29,7 +29,7 @@ class Song(models.Model):
     tracks = search.get_next_page()
     return [dict(title=t.get_title(), artist=str(t.get_artist())) for t in tracks]
   
-  def get_swf_for_song(self):
+  def load_video_id(self):
     yt_service = gdata.youtube.service.YouTubeService()
     yt_service.developer_key = YOUTUBE_DEVELOPER_KEY
     query = gdata.youtube.service.YouTubeVideoQuery()
@@ -37,14 +37,17 @@ class Song(models.Model):
     query.orderby = 'relevance'
     query.racy = 'include'
     feed = yt_service.YouTubeQuery(query)
-    entry = iter(feed.entry).next()
-    self.swf_url = entry.GetSwfUrl()
-    return self.swf_url != None
+    try:
+      entry = iter(feed.entry).next()
+      self.video_id = entry.id.text.split('/')[-1]
+      return True
+    except StopIteration:
+      return False
   
   def add_song(self, artist, title):
     s = Song(title=title, artist=artist)
     if Song.objects.filter(artist=s.artist, title=s.title).count() == 0:
-      if s.get_swf_for_song(): # XXX
+      if s.load_video_id():
         s.save()
       else:
         raise Exception
