@@ -1,7 +1,7 @@
-initialItems = new Array();
 App.views.Viewport = Ext.extend(Ext.Carousel, {
     fullscreen: true,
-    initComponent: function() {     
+    initComponent: function() {
+	     var initialItems = new Array(); 
 		 var party = document.getElementById('party_id').value;
 		 $.ajax({
             url: '/party/' + party + '/queue',
