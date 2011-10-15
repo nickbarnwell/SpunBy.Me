@@ -1,0 +1,99 @@
+html, .x-fullscreen {
+  background-color: #2d2d2d;
+}
+.painting {
+  border:none;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: 50% 0;
+}
+
+.lmfao { background-image: url(../cache/lmfao.jpg); }
+.NickiMinaj { background-image: url(../cache/NickiMinaj.jpg); }
+.rickroll { background-image: url(../cache/rickroll.jpg); }
+.tron  { background-image: url('http://src.sencha.io/http://sencha-carousel.heroku.com/images/paintings/sitting.jpg'); }
+
+.paintingcard {
+  background-color: #2d2d2d;
+}
+.infocard {
+  color:#fff;
+  background-color: #2d2d2d;
+  background-image: url('/images/noise.png');
+}
+.infocard .x-html,
+.infocard .x-html a,
+.infocard .x-html h1,
+.infocard .x-html h2,
+.infocard .x-html h3 {
+  color: #fff;
+}
+.x-toolbar-dark .x-toolbar-title { color: #60B9CE; }
+
+.x-button:hover { cursor: pointer; }
+.x-panel-body { text-align: center; }
+.x-toolbar-dark {
+  background-color: #2d2d2d;
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#636363), to(#2d2d2d), color-stop(.6,#333333));
+  border:none !important;
+  margin-bottom: 1px;
+}
+
+
+/* SEARCH BOX */
+
+fieldset.search {
+  border: none;
+  width: 340px;
+  margin: 0 0;
+  margin: 0 auto;
+  display:inline-block;
+}
+.search input, .search button {
+  border: none;
+  float: left;
+}
+.search input.box {
+  color: #fff;
+  font-size: 1.2em;
+  width: 286px;
+  height: 30px;
+  padding: 0;
+  background: #616161;
+  margin-top: 4px;
+  margin-right: 5px;
+}
+.search input.box:focus {
+  background: #616161;
+  outline: none;
+}
+.search button.btn {
+  width: 38px;
+  height: 38px;
+  -moz-border-radius-topleft: 4px; 
+  -moz-border-radius-topright: 4px; 
+  -moz-border-radius-bottomleft: 4px; 
+  -moz-border-radius-bottomright: 4px; 
+  -webkit-border-top-right-radius: 4px; 
+  -webkit-border-top-left-radius: 4px; 
+  -webkit-border-bottom-left-radius: 4px; 
+  -webkit-border-bottom-right-radius: 4px; 
+  cursor: pointer;
+  text-indent: -9999px;
+  background: #fbc900;
+}
+.search button.btn:hover {
+  background: #fbc900;
+  -moz-border-radius-topleft: 4px; 
+  -moz-border-radius-topright: 4px; 
+  -moz-border-radius-bottomleft: 4px; 
+  -moz-border-radius-bottomright: 4px; 
+  -webkit-border-top-right-radius: 4px; 
+  -webkit-border-top-left-radius: 4px; 
+  -webkit-border-bottom-left-radius: 4px; 
+  -webkit-border-bottom-right-radius: 4px; 
+}
+
+#embed {
+  margin-top: 20px;
+}

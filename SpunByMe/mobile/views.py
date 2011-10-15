@@ -9,4 +9,4 @@ def party_vote(request, slug):
   context = RequestContext(request, {
     'party': party
   })
-  return render_to_response('mobile.html', context)
+  return render_to_response('index.html', context)

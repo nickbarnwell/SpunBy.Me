@@ -1,0 +1,8 @@
+body { background: #2D2D2D; margin: 0; padding: 0; }
+#banner { text-align: center; padding: 10px 0 0 0; width:219px; margin:auto; }
+#banner img { border: none; }
+#song-info { padding:5px; color:#60B9CE; width:408px; font-family: AriArial, Helvetica, sans-serif; border:1px solid #969696; margin-bottom: 5px;}
+#song-info .vote { float:right;}
+#song-info .vote a { opacity: .8; font-weight:bold; }
+#song-info .vote a:hover { opacity: 1; cursor:pointer; }
+#carouselwrapper {height: 500px; width:420px; max-width:500px; text-align:center; margin:auto; }
