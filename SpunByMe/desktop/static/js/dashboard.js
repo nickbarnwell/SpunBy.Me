@@ -3,17 +3,26 @@ $.getJSON('party/1/queue',function(data) {
 });
 
 function generateEntry(item) {
-  $entry = <div class="entry">
-  $info = <div class="info">
-  $vote = <div class="vote">
-  $upvote = <div class="upvote"></div>
-    <div class="votecount">10</div>
-    <div class="downvote"></div>
-  </div>
-  <h2>Around the World</h2>
-  <h3>Daft Punk</h3>
-</div> <!-- close info -->
-</div> <!-- close entry -->
+  $entry = $('<div class="entry">');
+  $info = $('<div class="info">');
+  $vote = $('<div class="vote">');
+    $upvote = $('<div class="upvote">');
+    $votecount = $('<div class="votecount">');//10
+    $downvote = $('<div class="downvote">');
+
+  $song_title = $('<h2>Around the World</h2>');
+  $artist = $('<h3>Daft Punk</h3>');
+
+  $upvote.appendTo($vote);
+  $votecount.appendTo($vote);
+  $downvote.appendTo($vote);
+
+  $vote.appendTo($info);
+  $song_title.appendTo($info);
+  $artist.appendTo($info);
+  
+  $info.appendto($entry);
+
 }
 
 
