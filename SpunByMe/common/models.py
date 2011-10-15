@@ -16,11 +16,15 @@ ECHONEST_API_KEY = '7DDYRFE8SFUQ2RN2B'
 class User(models.Model):
   first_name = models.CharField(blank=False, max_length=255)
   last_name = models.CharField(blank=False, max_length=255)
-  fb_username = models.CharField(blank=False, max_length=255)
+  fb_username = models.CharField(blank=False, max_length=255, unique=True)
 
   @property
   def thumbnail_url(self):
     return 'http://graph.facebook.com/%s/picture' % self.fb_username
+  
+  def __unicode__(self):
+    return '<User: %s %s>' % (self.first_name, self.last_name)
+
 
 class Song(models.Model):
   title = models.CharField(blank=False, max_length=255)
@@ -78,7 +82,7 @@ class Song(models.Model):
     return s
 
   def to_hash(self):
-    return {'title':self.title, 'artist':self.artist, 'video_id':self.video_id}
+    return {'title':self.title, 'artist':self.artist, 'video_id':self.video_id, 'song_id':self.pk}
 
 class Party(models.Model):
   name = models.CharField(max_length=50, unique=True)
@@ -119,9 +123,9 @@ class Party(models.Model):
 
   def save(self, *args, **kwargs):
     if not self.id:
-        self.slug = slugify(self.name)
-        super(Party, self).save(*args, **kwargs)
-
+      self.slug = slugify(self.name)
+    super(Party, self).save(*args, **kwargs)
+    
 
 class QueueData(models.Model):
   song = models.ForeignKey(Song, blank=False)
