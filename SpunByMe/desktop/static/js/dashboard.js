@@ -5,16 +5,17 @@ var ytplayer;
 function SongEntry() {
   this.html = "";
   this.video_id = "";
+  this.id = "";
 }
 
-function getData() {
+function getQueue() {
   var pid = $('#party_id').val();
   $.getJSON('/party/'+pid+'/queue',function(data) {
     for (track in data) {
-      // ytQueue.push(data[track].video_id);
       var newSong = new SongEntry();
       $html = generateEntry(data[track]);
       newSong.html = $html;
+      newSong.id = data[track].id;
       newSong.html.appendTo($("#playlist"));
       newSong.video_id = data[track].video_id;
       ytQueue.push(newSong);
@@ -81,13 +82,28 @@ function onYouTubePlayerReady(playerId) {
 }
 
 function processStateChange(code) {
-    if (code === 5) {
-      if (ytQueue.length > 0) {
-        current.html.fadeOut();
-        currentSong = ytQueue.pop();
-        loadVideo(currentSong);
+  if (code === 5) {
+    for (song in ytQueue) {
+      if (ytQueue[song].id == currentSong.id) {
+        ytQueue[song].html.fadeOut();
+        ytQueue.pop();
       }
+    }
+    getNextSong();
   }
+}
+
+function getNextSong() {
+  var pid = $('#party_id').val();
+  $.getJSON('/party/'+pid+'/next',function(data) {
+    var newSong = new SongEntry();
+    $html = generateEntry(data[0]);
+    newSong.html = $html;
+    newSong.id = data[0].id;
+    newSong.video_id = data[0].video_id;
+    currentSong = newSong;
+    loadVideo(currentSong);
+  });
 }
 
 // The "main method" of this sample. Called when someone clicks "Run".
@@ -101,9 +117,17 @@ function loadPlayer(videoID) {
                      "?version=3&enablejsapi=1&playerapiid=player1", 
                      "videoDiv", "480", "295", "9", null, null, params, atts);
 }
+
+function getQueueTimer(timer) {
+  if (timer) {
+    clearTimeout(timer);
+  }
+  getQueue();
+  setTimeout(getQueueTimer,10000);
+}
 function _run() {
   loadPlayer("ylLzyHk54Z0");
-  getData();
+  getQueueTimer();
   if (ytQueue.length > 0) {
     currentSong = ytQueue.pop();
     loadVideo(currentSong);
