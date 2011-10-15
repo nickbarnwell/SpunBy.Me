@@ -14,7 +14,12 @@ Hey {{user.first_name}}, welcome to SpunBy.Me! Ready to get started?<br><br>
 {{ form.as_p }}
 <input type="submit" value="Submit" />
 </form>
-
+<div class='roundbox'><p>Or here are some of the rooms you've created previously:</p>
+<li>
+{% for room in rooms %}
+<ul><a href='{{ url room }}'>room.name</a></ul>
+{% end %}
+</div>
 </div>
 {% else %}
 <div class='roundbox'>

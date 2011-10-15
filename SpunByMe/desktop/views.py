@@ -52,19 +52,12 @@ def login(request):
     request.session['user'] = user
     return redirect('desktop.views.index')
 
-def party_vote(request, slug):
-  party = get_object_or_404(Party, slug=slug)
-  context = RequestContext(request, {
-    'party': party
-  })
-  return render_to_response('dashboard.html', context)
-
 def new_party(request):
   if request.method == 'POST':
     form = PartyForm(request.POST)
     if form.is_valid():
       user = User.objects.get(fb_username=request.session['user'].fb_username)
-      p, created = Party.objects.get_or_create(name=form.cleaned_data['subject'], owner=user)
+      p, created = Party.objects.get_or_create(name=form.cleaned_data['name'], owner=user)
       return redirect(p)
     else:
       redirect

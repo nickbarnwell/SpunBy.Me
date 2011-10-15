@@ -15,10 +15,10 @@ urlpatterns = patterns('',
     #View Lines
     ('^login/', 'desktop.views.login'),
     ('^party/new', 'desktop.views.new_party'),
-    ('^party/(?P<slug>\w+)', 'desktop.views.party_vote'),
+    ('^party/(?P<slug>\w+)', 'mobile.views.party_vote'),
     ('^party/(?P<slug>\w+)/dashboard', 'desktop.views.party_dash'),
     ('^dashboard', 'desktop.views.dashboard'),
-    ('^$', 'desktop.views.index'),
+    ('^$', 'desktop.views.index'),`
 
 
 
