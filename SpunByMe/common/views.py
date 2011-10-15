@@ -34,8 +34,7 @@ def now_playing(request, pid):
 
 def queue(request, pid):
   party = Party.objects.get(pk=pid)
-  print party.sorted_queue()
-  result = cjson.encode([s.to_hash() for s in party.sorted_queue()])
+  result = cjson.encode([d.to_hash() for d in party.sorted_queue()])
   return HttpResponse(result, mimetype='application/json')
 
 def get_next_song(request, pid):

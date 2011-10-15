@@ -17,7 +17,7 @@ class User(models.Model):
 class Song(models.Model):
   title = models.CharField(blank=False, max_length=255)
   artist = models.CharField(blank=False, max_length=255)
-  swf_url = models.URLField(blank=False)
+  video_id = models.CharField(blank=False, max_length=64)
   
   def __unicode__(self):
     return "%s - %s" % (self.title, self.artist)
@@ -44,7 +44,7 @@ class Song(models.Model):
   def add_song(self, artist, title):
     s = Song(title=title, artist=artist)
     if Song.objects.filter(artist=s.artist, title=s.title).count() == 0:
-      if s.get_swf_for_song():
+      if s.get_swf_for_song(): # XXX
         s.save()
       else:
         raise Exception
@@ -53,7 +53,7 @@ class Song(models.Model):
     return s
 
   def to_hash(self):
-    return {'title':self.title, 'artist':self.artist, 'url':self.swf_url}
+    return {'title':self.title, 'artist':self.artist, 'video_id':self.video_id}
 
 class Party(models.Model):
   name = models.CharField(max_length=50, unique=True)
@@ -65,8 +65,7 @@ class Party(models.Model):
     return self.name
 
   def sorted_queue(self):
-    array = sorted(QueueData.objects.filter(party=self), key=lambda s: s.confidence)
-    return [s.song for s in array]
+    return sorted(QueueData.objects.filter(party=self), key=lambda s: s.confidence)
   
   def pop(self):
     queue = sorted(QueueData.objects.filter(party=self), key=lambda s: s.confidence)
@@ -93,6 +92,11 @@ class QueueData(models.Model):
   added_at = models.DateTimeField(auto_now_add=True, blank=False)
   upvotes = models.IntegerField(default=1, blank=False)
   downvotes = models.IntegerField(default=0, blank=False)
+
+  def to_hash(self):
+    h = { 'votes': self.upvotes + self.downvotes }
+    h.update(self.song.to_hash())
+    return h
 
   def vote(self, vtype):
     if vtype == 'up':
