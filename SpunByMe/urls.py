@@ -8,6 +8,7 @@ urlpatterns = patterns('',
     ('^search/', 'common.views.search'),
     ('^add_song/', 'common.views.add_song'),
     ('^party/(?P<pid>\d+)/queue', 'common.views.queue'),
+    ('^party/(?P<pid>\d+)/next', 'common.views.get_next_song'),
     ('^party/(?P<slug>\w+)/', 'desktop.views.party'),
     # Examples:
     # url(r'^$', 'SpunByMe.views.home', name='home'),

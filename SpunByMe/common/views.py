@@ -35,4 +35,12 @@ def queue(request, pid):
   result = cjson.encode([s.to_hash() for s in party.sorted_queue()])
   return HttpResponse(result, mimetype='application/json')
 
-
+def get_next_song(request, pid):
+  party = Party.objects.get(pk=pid)
+  song = party.pop()
+  if song:
+    result = cjson.encode(s.to_hash())
+  else:
+    result = cjson.encode({'status':'Failure'})
+  return HttpResponse(result, mimetype='application/json')
+  

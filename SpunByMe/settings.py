@@ -12,9 +12,9 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '%s/dev.db' % os.getcwd(),                      # Or path to database file if using sqlite3.
-        'USER': '',                      # Not used with sqlite3.
+        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'spunbyme',                      # Or path to database file if using sqlite3.
+        'USER': 'shackserv',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
@@ -151,3 +151,32 @@ LOGGING = {
         },
     }
 }
+try:
+  import local_settings
+except ImportError:
+  print """ 
+    -------------------------------------------------------------------------
+    You need to create a local_settings.py file which needs to contain at least
+    database connection information.
+    
+    Copy local_settings_example.py to local_settings.py and edit it.
+    -------------------------------------------------------------------------
+    """
+  import sys 
+  sys.exit(1)
+else:
+  # Import any symbols that begin with A-Z. Append to lists any symbols that
+  # begin with "EXTRA_".
+  import re
+  for attr in dir(local_settings):
+    match = re.search('^EXTRA_(\w+)', attr)
+    if match:
+      name = match.group(1)
+      value = getattr(local_settings, attr)
+      try:
+        globals()[name] += value
+      except KeyError:
+        globals()[name] = value
+    elif re.search('^[A-Z]', attr):
+      globals()[attr] = getattr(local_settings, attr)
+
