@@ -1,7 +1,7 @@
 $(document).ready(function() {
   $.getJSON('http://phoenix.dyn.cs.washington.edu:8000/party/1/queue',function(data) {
     for (track in data) {
-      generateEntry(track);
+      generateEntry(data[track]);
     }
   });
 });
