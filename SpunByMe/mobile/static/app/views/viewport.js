@@ -38,17 +38,17 @@ App.views.Viewport = Ext.extend(Ext.Carousel, {
 		                url: '/party/' + party + '/next',
 		                dataType: 'json',
 		                success: function(json) {
-		                    var item = {
-								slug:  json['song_id'],
-								title: json['title'],
-								artist: json['artist'],
-								songid: json['song_id'],
-								albumart: json['albumart']
-							};
-							if(me.getItems().peek().songid != item.songid){
-								me.add(item);
-								this.doLayout();
-							}
+		     //                var item = {
+							// 	slug:  json['song_id'],
+							// 	title: json['title'],
+							// 	artist: json['artist'],
+							// 	songid: json['song_id'],
+							// 	albumart: json['albumart']
+							// };
+							// if(me.getItem().peek().songid != item.songid){
+							// 	me.add(item);
+							// 	this.doLayout();
+							// }
 		                }
 		            });
 					

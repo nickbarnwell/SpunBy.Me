@@ -11,6 +11,7 @@ urlpatterns = patterns('',
     ('^party/(?P<pid>\d+)/queue', 'common.views.queue'),
     ('^party/(?P<pid>\d+)/next', 'common.views.get_next_song'),
     ('^party/(?P<pid>\d+)/playing', 'common.views.now_playing'),
+    ('^party/(?P<pid>\d+)/skip', 'common.views.skip'),
 
     #View Lines
     ('^login/$', 'desktop.views.login'),

@@ -22,6 +22,12 @@ $(document).ready(function() {
     });
     return false;
   });
+  $("#skip").click(function(evt) {
+    var pid = $('#party_id').val();
+    $.getJSON('/party/'+pid+'/skip', function() {
+      getQueue();
+    })
+  })
 });
 
 function SongEntry() {
