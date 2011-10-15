@@ -43,4 +43,3 @@ def party(request, slug):
     'party': party
   })
   return render_to_response('dashboard.html', context)
-

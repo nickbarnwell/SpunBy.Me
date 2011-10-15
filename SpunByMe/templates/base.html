@@ -1,34 +1,31 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:og="http://ogp.me/ns#"
-      xmlns:fb="https://www.facebook.com/2008/fbml">
+      xmlns:fb="https://www.facebook.com/2008/fbml"
+>
 <head>
 	<title>{% block title %}SpunBy.Me{% endblock %}</title>
 	<meta property="og:site_name" content='SpunBy Me' />
-    <meta property="fb:admins" content="nick.barnwell"/>
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/main.css">
+  <meta property="fb:admins" content="nick.barnwell"/>
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/main.css?v=2">
 </head>
 
 <body>
   <div id="container">
     <header>
-      <img src="{{STATIC_URL}}logo/logo.png" class='husky-logo'>
+      <a href="/"><img src="{{STATIC_URL}}logo/logo_onwhite.png" class='logo'></a>
     </header>
     <div id="main" role="main">
     	{% block content %} {% endblock %}
     </div>
 
-    <footer>
-    built by <a href="https://www.facebook.com/nick.barnwell">nb</a>.
-    </footer>
   </div>
-
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.js"></script>
-
+  <footer>
+    built by <a href="https://www.facebook.com/nick.barnwell">nb</a>.
+  </footer>
   <!--[if lt IE 7 ]>
     <script src="js/libs/dd_belatedpng.js"></script>
     <script>DD_belatedPNG.fix("img, .png_bg");</script>
   <![endif]-->
+ </body>
 </html>
 
-<meta property="og:description"
-          content="TurnTable.FM for your house party."/>
