@@ -1,7 +1,7 @@
 App.views.Viewport = Ext.extend(Ext.Carousel, {
     fullscreen: true,
     initComponent: function() {
-	     var initialItems = new Array(); 
+	     initialItems = new Array(); 
 		 var party = document.getElementById('party_id').value;
 		 $.ajax({
             url: '/party/' + party + '/queue',
@@ -9,7 +9,7 @@ App.views.Viewport = Ext.extend(Ext.Carousel, {
             success: function(json) {
             	console.log(json)
                 for (var song=0; song<json.length; song++){
-                	song = json[song];
+                	var song = json[song];
                 	initialItems.push({
 					slug: '',
 					title: song['title'],
