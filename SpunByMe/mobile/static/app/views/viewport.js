@@ -1,42 +1,46 @@
 App.views.Viewport = Ext.extend(Ext.Carousel, {
     fullscreen: true,
     initComponent: function() {
-	     initialItems = new Array(); 
+	     var initialItems = new Array();
 		 var party = document.getElementById('party_id').value;
 		 $.ajax({
             url: '/party/' + party + '/queue',
             dataType: 'json',
+            async: false,
             success: function(json) {
-            	console.log(json)
-                for (var song=0; song<json.length; song++){
+                for(song in json) {
                 	var song = json[song];
-                	initialItems.push({
+	                initialItems.push({
 					slug: song['song_id'],
 					title: song['title'],
 					artist: song['artist'],
-					});
-                }
-                console.log(initialItems);
-                
-            }
+					songid: song['song_id'],
+					videoid: song['video_id']
+				});
+            }}
         });
+
         Ext.apply(this, {
 
             defaults: {
                 xtype: 'paintingcard',
-            },            
+            },
+
             items: initialItems,
 			listeners: {
             	beforecardswitch: function() {
 					var me = this;
 					$.ajax({
+						async:false,
 		                url: '/party/' + party + '/next',
 		                dataType: 'json',
 		                success: function(json) {
 		                    var item = {
-								slug: json['song_id'],
+								slug:  json['song_id'],
 								title: json['title'],
 								artist: json['artist'],
+								songid: json['song_id'],
+								videoid: json['video_id']
 							};
 							if(this.getItems().peek().songid != item.songid){
 								me.add(item);
@@ -49,6 +53,5 @@ App.views.Viewport = Ext.extend(Ext.Carousel, {
         	}
         });
         App.views.Viewport.superclass.initComponent.apply(this, arguments);
-        console.log(initialItems);
     }
 });
