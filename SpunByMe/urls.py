@@ -5,7 +5,6 @@ from django.conf.urls.defaults import patterns, include, url
 # admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'', include('social_auth.urls')),
     ('^search/', 'common.views.search'),
     ('^add_song/', 'common.views.add_song'),
     ('^party/(?P<slug>\w+)/', 'desktop.views.party'),
