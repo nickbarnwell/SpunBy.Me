@@ -2,8 +2,24 @@ var ytQueue = [];
 var currentSong = "";
 var ytplayer;
 
+function add_song(artist, title) {
+  var pid = $('#party_id').val();
+  $.getJSON('/party/'+pid+'/add_song?artist='+artist+'&title='+title,function(data){});
+}
+
 $(document).ready(function() {
   $(".search .btn").click(function(evt) {
+    $.getJSON('/search/?q='+$('#q').val(), function(data){
+      var s = '<div class="search_results"><h1>Search Results</h1>';
+      s += '<ul>';
+      for(var i = 0; i < data.length; i++) {
+        s += '<li><a href="#" onclick="add_song(\''+data[i].artist +'\',\''+data[i].title+'\')">'+data[i].artist+' - '+data[i].title+'</a></li>';
+      }
+      s += '</ul></div>';
+      $.modal(s,{
+        closeHTML: "<a href='#'>Close</a>"
+      });
+    });
     return false;
   });
 });
