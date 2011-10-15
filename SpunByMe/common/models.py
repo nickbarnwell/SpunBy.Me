@@ -44,15 +44,17 @@ class Song(models.Model):
     except StopIteration:
       return False
   
-  def add_song(self, artist, title):
+  @classmethod
+  def add_song(cls, artist, title):
     s = Song(title=title, artist=artist)
-    if Song.objects.filter(artist=s.artist, title=s.title).count() == 0:
+    res = Song.objects.filter(artist=artist, title=title)
+    if res.count() == 0:
       if s.load_video_id():
         s.save()
       else:
         raise Exception
     else:
-      s = Song.objects.filter(artist=artist, title=title)[0]
+      s = res[0]
     return s
 
   def to_hash(self):
