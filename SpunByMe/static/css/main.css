@@ -1,5 +1,5 @@
 body {margin: 0em 0 0 0; vertical-align: middle; font-family: Helvetica,Arial,Serif;
-  background: #39275B;
+  background: #efefef;
   color: white;
  } 
 
@@ -8,8 +8,9 @@ a {
   color: #D7A900;
 }
 header {
-  width: 960px;
+  width: 740px;
   margin: 0 auto;
+  text-align: left;
   display: block;
   height: 120px;
 }
@@ -26,9 +27,9 @@ h1 {
 }
 
 
-.husky-logo {
+.logo {
   display: inline;
-  height: 100px;
+  height: 80;
   padding-top: 30;
 }
 
@@ -46,7 +47,7 @@ footer {
 #container {
   text-align: center;
   display: block;
-  width: 960;
+  width: 740px;
   margin: 0 auto;
 }
 
@@ -61,18 +62,6 @@ footer {
   text-align: left;
   border-radius: 12px;
   background: #222; 
-}
-
-.course {
-  border-style: solid;
-  border-color: #fefefe;
-  border-radius: 9px;
-  padding: 5px;
-  margin: 10px;
-}
-
-.course p {
-  margin: 2px;
 }
 
 .roundbox h3 {
