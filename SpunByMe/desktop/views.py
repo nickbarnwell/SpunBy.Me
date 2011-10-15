@@ -21,8 +21,13 @@ def index(request):
     context = RequestContext(request, {'form':PartyForm(), 'user':request.session['user'], 'rooms':[r for r in Party.objects.filter(owner=request.session['user'])]})
     return render_to_response('landing.html', context)
 
+class MockParty:
+  pass
 def dashboard(request):
-  return render_to_response('dashboard.html', RequestContext(request, {'pid':1}))
+  party = MockParty()
+  party.id = 1
+  party.viewer_url = 'http://google.com'
+  return render_to_response('dashboard.html', RequestContext(request, {'party':party}))
 
 def party_dash(request, slug):
   party = Party.objects.get(slug=slug)

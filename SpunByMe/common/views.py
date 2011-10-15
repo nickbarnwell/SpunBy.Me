@@ -30,7 +30,11 @@ def vote(request):
 
 def now_playing(request, pid):
   party = Party.objects.get(pk=pid)
-  result= cjson.encode(party.now_playing.to_hash())
+  playing = party.now_playing
+  if playing:
+    result = cjson.encode(playing.to_hash())
+  else:
+    result = '{"status":"Failure"}'
   return HttpResponse(result, mimetype='application/json')
 
 
@@ -44,7 +48,7 @@ def get_next_song(request, pid):
   song = party.pop()
   party.save()
   if song:
-    result = cjson.encode(s.to_hash())
+    result = cjson.encode(song.to_hash())
   else:
     result = cjson.encode({'status':'Failure'})
   return HttpResponse(result, mimetype='application/json')

@@ -18,6 +18,11 @@ function getQueue() {
   var pid = $('#party_id').val();
   $.getJSON('/party/'+pid+'/queue/',function(data) {
     $("#playlist .entry").remove();
+    ytQueue = [];
+    if(currentSong) {
+      currentSong.html.css("backgroundColor","#33CC33");
+      currentSong.html.appendTo($('#playlist'));
+    }
     for (track in data) {
       var newSong = new SongEntry();
       $html = generateEntry(data[track]);
@@ -34,18 +39,19 @@ function generateEntry(track) {
   var $entry = $('<div class="entry">');
   var $info = $('<div class="info">');
   var $vote = $('<div class="vote">');
-    var $upvote = $('<div class="upvote">');
-    var $votecount = $('<div class="votecount">10</div>');//10
-    var $downvote = $('<div class="downvote">');
+  //var $upvote = $('<div class="upvote">');
+  var vv = '[' + ((track.votes != undefined) ? track.votes : '-') + ']';
+  var $votecount = $('<div class="votecount">'+vv+'</div>');
+  //var $downvote = $('<div class="downvote">');
 
   var $song_title = $('<h2></h2>');
   $song_title.text(track.title);
   var $artist = $('<h3></h3>');
   $artist.text(track.artist);
 
-  $upvote.appendTo($vote);
+  //$upvote.appendTo($vote);
   $votecount.appendTo($vote);
-  $downvote.appendTo($vote);
+  //$downvote.appendTo($vote);
 
   $vote.appendTo($info);
   $song_title.appendTo($info);
@@ -86,16 +92,14 @@ function onYouTubePlayerReady(playerId) {
   ytplayer = document.getElementById("ytPlayer");
   ytplayer.addEventListener("onError", "onPlayerError");
   ytplayer.addEventListener("onStateChange", "processStateChange");
+  if(currentSong) {
+    loadVideo(currentSong);
+  }
 }
 
 function processStateChange(code) {
-  if (code === 5) {
-    for (song in ytQueue) {
-      if (ytQueue[song].id == currentSong.id) {
-        ytQueue[song].html.fadeOut();
-        ytQueue.pop();
-      }
-    }
+  if (code === 0) {
+    currentSong.html.fadeOut();
     getNextSong();
   }
 }
@@ -103,13 +107,16 @@ function processStateChange(code) {
 function getNextSong() {
   var pid = $('#party_id').val();
   $.getJSON('/party/'+pid+'/next',function(data) {
-    var newSong = new SongEntry();
-    $html = generateEntry(data[0]);
-    newSong.html = $html;
-    newSong.id = data[0].id;
-    newSong.video_id = data[0].video_id;
-    currentSong = newSong;
-    loadVideo(currentSong);
+    if(data.status == 'Failure') {
+    } else {
+      var newSong = new SongEntry();
+      $html = generateEntry(data);
+      newSong.html = $html;
+      newSong.id = data.id;
+      newSong.video_id = data.video_id;
+      currentSong = newSong;
+      loadVideo(currentSong);
+    }
   });
 }
 
@@ -130,7 +137,7 @@ function getQueueTimer(timer) {
     clearTimeout(timer);
   }
   getQueue();
-  setTimeout(getQueueTimer,10000);
+  setTimeout(getQueueTimer,1000);
 }
 function _run() {
   loadPlayer("ylLzyHk54Z0");
@@ -138,6 +145,20 @@ function _run() {
   if (ytQueue.length > 0) {
     currentSong = ytQueue.pop();
     loadVideo(currentSong);
-  } 
+  }
+  var pid = $('#party_id').val();
+  $.getJSON('/party/'+pid+'/playing', function(data) {
+    if(data.status == 'Failure') {
+      getNextSong();
+    } else {
+      var newSong = new SongEntry();
+      var $html = generateEntry(data);
+      newSong.html = $html;
+      newSong.id = data.id;
+      newSong.video_id = data.video_id;
+      currentSong = newSong;
+      loadVideo(currentSong);
+    }
+  });
 }
 google.setOnLoadCallback(_run);
