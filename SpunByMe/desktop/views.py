@@ -1,7 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render_to_response, redirect
 from django.template import Context, loader
-from django.core.urlresolvers import reverse
 import urllib2
 
 FACEBOOK_APP_ID = '252389068144629'
