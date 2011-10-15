@@ -138,8 +138,7 @@ class QueueData(models.Model):
     if self.upvotes - self.downvotes == 0:
       return 0
     else:
-      _confidence(ups, downs)
-      return _confidence(ups, downs)
+      return self._confidence()
   
   def __unicode__(self):
     return "Party: %s -- Song: %s" % (self.party, self.song)

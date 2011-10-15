@@ -1,10 +1,20 @@
 var ytQueue = [];
 
+function SongEntry() {
+  this.html = "";
+  this.video_id = "";
+}
+
 function getData() {
-  $.getJSON('http://phoenix.dyn.cs.washington.edu:8000/party/1/queue',function(data) {
+  var pid = $('#party_id').val();
+  $.getJSON('/party/'+pid+'/queue',function(data) {
     for (track in data) {
-      ytQueue.push(data[track].video_id);
-      generateEntry(data[track]);
+      // ytQueue.push(data[track].video_id);
+      var newSong = new SongEntry();
+      $html = generateEntry(data[track]);
+      newSong.html = $html;
+      newSong.video_id = data[track].video_id;
+      ytQueue.push(newSong);
     }
     loadVideo(ytQueue.pop());
   });
@@ -32,7 +42,8 @@ function generateEntry(track) {
   $artist.appendTo($info);
 
   $info.appendTo($entry);
-  $entry.appendTo($("#playlist"));
+  // $entry.appendTo($("#playlist"));
+  return $entry;
 }
 
 
@@ -46,12 +57,12 @@ function updateHTML(elmId, value) {
 }
 
 // Loads the selected video into the player.
-function loadVideo(videoID) {
+function loadVideo(songEntry) {
   // var selectBox = document.getElementById("videoSelection");
   // var videoID = selectBox.options[selectBox.selectedIndex].value
   
   if(ytplayer) {
-    ytplayer.loadVideoById(videoID);
+    ytplayer.loadVideoById(songEntry.video_id);
   }
 }
 
