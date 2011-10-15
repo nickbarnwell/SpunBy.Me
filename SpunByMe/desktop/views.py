@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.template import Context, RequestContext, loader
 import urllib2
-from common.models import Party, User, Song
+from common.models import *
 import cjson
 from desktop.forms import PartyForm
 
