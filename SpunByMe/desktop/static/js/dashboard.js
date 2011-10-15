@@ -3,7 +3,7 @@ var ytQueue = [];
 $(document).ready(function() {
   $.getJSON('http://phoenix.dyn.cs.washington.edu:8000/party/1/queue',function(data) {
     for (track in data) {
-      ytQueue.push(data[track].url);
+      ytQueue.push(data[track].video_id);
       generateEntry(data[track]);
     }
     loadVideo(ytQueue.pop());
