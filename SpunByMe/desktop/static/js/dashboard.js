@@ -28,7 +28,7 @@ function generateEntry(track) {
   $artist.appendTo($info);
 
   $info.appendTo($entry);
-
+  $entry.appendTo($("#playlist"));
 }
 
 
