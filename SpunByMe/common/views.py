@@ -6,7 +6,7 @@ import cjson
 
 def search(request):
   q = request.GET.get('q')
-  result = Song().search('%q' % q)
+  result = Song().search('%s' % q)
   return HttpResponse(cjson.encode(result), mimetype='application/json')
 
 def add_song(request, pid):
