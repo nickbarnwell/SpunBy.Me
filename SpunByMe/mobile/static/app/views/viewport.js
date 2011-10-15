@@ -1,46 +1,49 @@
 App.views.Viewport = Ext.extend(Ext.Carousel, {
     fullscreen: true,
     initComponent: function() {
-	     var intialItems = new Array();
+	     var initialItems = new Array();
 		 var party = document.getElementById('party_id').value;
 		 $.ajax({
             url: '/party/' + party + '/queue',
             dataType: 'json',
+            async: false,
             success: function(json) {
-            	console.log(json)
-                for (var song in json){
-                	song = json[song];
-                	intialItems.push({
-					slug: '',
+            	console.log(json);
+                for(song in json) {
+                	var idx = song;
+                	var song = json[song];
+	                initialItems.push({
+					slug: idx,
 					title: song['title'],
 					artist: song['artist'],
 					songid: song['song_id'],
-					videoid: song['video_id']
-					});
-                }
-                console.log(intialItems);
-                
-            }
+					albumart: song['albumart']
+				});
+				console.log(song['albumart'])
+            }}
         });
+        console.log(initialItems)
         Ext.apply(this, {
 
             defaults: {
                 xtype: 'paintingcard',
-            },            
-            items: [intialItems],
+            },
+
+            items: initialItems.slice(0,-2),
 			listeners: {
             	beforecardswitch: function() {
 					var me = this;
 					$.ajax({
+						async:false,
 		                url: '/party/' + party + '/next',
 		                dataType: 'json',
 		                success: function(json) {
 		                    var item = {
-								slug: '',
+								slug:  json['song_id'],
 								title: json['title'],
 								artist: json['artist'],
 								songid: json['song_id'],
-								videoid: json['video_id']
+								albumart: json['albumart']
 							};
 							if(this.getItems().peek().songid != item.songid){
 								me.add(item);
@@ -52,7 +55,7 @@ App.views.Viewport = Ext.extend(Ext.Carousel, {
             	}
         	}
         });
+        console.log(initialItems)
         App.views.Viewport.superclass.initComponent.apply(this, arguments);
-        console.log(intialItems); console.log(this.getItems());
     }
 });
