@@ -1,0 +1,4 @@
+* Voting Algo [Alex]
+* Finds the video links (Scraper) [Bill]
+* Frontend voting interface (Ryan) 
+* Dashboard Frontend [Nick]
