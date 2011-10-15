@@ -45,11 +45,8 @@ def login(request):
     me = cjson.decode(
       urllib2.urlopen(
         'https://graph.facebook.com/me/?access_token=%s' % access_token).read())
-    user = User()
-    user.first_name = me['first_name']
-    user.last_name = me['last_name']
-    user.fb_username = me['username']
-    user.save()
+    user, created = User.objects.get_or_create(first_name=me['first_name'], last_name = me['last_name'], fb_username = me['username'])
+    
     request.session['user'] = user
     return redirect('desktop.views.index')
 
@@ -65,8 +62,7 @@ def new_party(request):
     form = PartyForm(request.POST)
     if form.is_valid():
       user = User.objects.get(fb_username=request.session['user'].fb_username)
-      p = Party(name=form.cleaned_data['subject'], user=user)
-      p.save()
+      p, created = Party.objects.get_or_create(name=form.cleaned_data['subject'], user=user)
       return redirect(p)
     else:
       redirect
