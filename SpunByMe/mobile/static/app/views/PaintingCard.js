@@ -66,6 +66,7 @@
                                     var song = json[song];
                                  html += '<li><a href="/party/' + party + '/add_song?artist=' + song['artist'] + '&amp;title=' + song['title']
                                     + '">' + song['title'] + ' - ' + song['artist'] + '</a></li>';
+        
                                 }
                                 $("#queryresults").html(html + '</ul>');
                             }

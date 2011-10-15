@@ -10,9 +10,10 @@ App.views.Viewport = Ext.extend(Ext.Carousel, {
             success: function(json) {
             	console.log(json);
                 for(song in json) {
+                	var idx = song;
                 	var song = json[song];
 	                initialItems.push({
-					slug: song['song_id'],
+					slug: idx,
 					title: song['title'],
 					artist: song['artist'],
 					songid: song['song_id'],
@@ -20,14 +21,14 @@ App.views.Viewport = Ext.extend(Ext.Carousel, {
 				});
             }}
         });
-
+        console.log(initialItems)
         Ext.apply(this, {
 
             defaults: {
                 xtype: 'paintingcard',
             },
 
-            items: initialItems,
+            items: initialItems.slice(0,-2),
 			listeners: {
             	beforecardswitch: function() {
 					var me = this;
@@ -53,6 +54,7 @@ App.views.Viewport = Ext.extend(Ext.Carousel, {
             	}
         	}
         });
+        console.log(initialItems)
         App.views.Viewport.superclass.initComponent.apply(this, arguments);
     }
 });
