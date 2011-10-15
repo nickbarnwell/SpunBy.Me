@@ -1,6 +1,6 @@
 var ytQueue = [];
 
-$(document).ready(function() {
+function getData() {
   $.getJSON('http://phoenix.dyn.cs.washington.edu:8000/party/1/queue',function(data) {
     for (track in data) {
       ytQueue.push(data[track].video_id);
@@ -8,7 +8,7 @@ $(document).ready(function() {
     }
     loadVideo(ytQueue.pop());
   });
-});
+};
 
 function generateEntry(track) {
   var $entry = $('<div class="entry">');
@@ -79,5 +79,6 @@ function loadPlayer(videoID) {
 }
 function _run() {
   loadPlayer("ylLzyHk54Z0");
+  getData();
 }
 google.setOnLoadCallback(_run);
