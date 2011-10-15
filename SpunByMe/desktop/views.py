@@ -8,7 +8,7 @@ from desktop.forms import PartyForm
 
 FACEBOOK_APP_ID = '252389068144629'
 FACEBOOK_API_SECRET = '794cb30ba61fb6609bdd81a9b61eead2'
-OAUTH_REDIRECT_URI = 'http://spunbyme.herokuapp.com/login/'
+OAUTH_REDIRECT_URI = 'http://spunby.me/login/'
 
 def index(request):
   if request.session.get('access_token', None) is None:
@@ -19,7 +19,7 @@ def index(request):
     return render_to_response('landing.html', context)
   else:
     context = RequestContext(request, {'form':PartyForm()})#'user':request.session['user'], })
-  return render_to_response('landing.html', context)
+    return render_to_response('landing.html', context)
 
 def dashboard(request):
   return render_to_response('dashboard.html', RequestContext(request, {'pid':1}))
