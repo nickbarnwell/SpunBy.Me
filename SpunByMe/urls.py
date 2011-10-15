@@ -10,6 +10,7 @@ urlpatterns = patterns('',
     ('^party/(?P<pid>\d+)/queue', 'common.views.queue'),
     ('^party/(?P<pid>\d+)/next', 'common.views.get_next_song'),
     ('^party/(?P<slug>\w+)/', 'desktop.views.party'),
+    ('^dashboard/', 'desktop.views.dashboard'),
     ('^login/', 'desktop.views.login'),
     ('', 'desktop.views.index'),
     # Examples:

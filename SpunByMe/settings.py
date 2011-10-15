@@ -153,6 +153,11 @@ LOGGING = {
         },
     }
 }
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.static',
+)
+
 try:
   import local_settings
 except ImportError:
