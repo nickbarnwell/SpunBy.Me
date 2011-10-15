@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<head>
+<title>Spun By Me</title>
+
+<link rel="stylesheet" type="text/less" href="lib/bootstrap/lib/bootstrap.less" />
+<link rel="stylesheet" type="text/less" href="css/dashboard.less" />
+<script src="lib/bootstrap/less-1.1.3.min.js"></script>
+
+<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+    <script type="text/javascript">
+      google.load("swfobject", "2.1");
+    </script>    
+
+<script src="js/dashboard.js"></script>
+</head>
+
+<body>
+<div id="header">
+	<img src="img/logo_grey_me.png" />
+</div>
+<div id="container">
+	<div class="row">
+		<div class="span12">
+			<div class="row">
+				<div class="span6">
+					<div id="playlist">
+						<div class="widgetheader">DJ Queue</div>
+						<div class="entry">
+							<div class="info">
+								<div class="vote">
+									<div id="upvote"></div>
+									<div id="votecount">10</div>
+									<div id="downvote"></div>
+								</div>
+								<h2>Around the World</h2>
+								<h3>Daft Punk</h3>
+							</div> <!-- close info -->
+						</div> <!-- close entry -->
+						<div class="entry">
+							<h2>Overture</h2>
+							<h3>Daft Punk</h3>
+							<span class="label success">1</span>
+							<span class="label important">6</span>
+						</div>
+					</div> <!-- close playlist -->
+
+					<div id="embed">
+						<div id="videoDiv">Loading...</div>
+						<div id="videoControls">
+							<p>Select a video to load:</p>
+							<select id="videoSelection" onchange="loadVideo();">
+								<option value="ylLzyHk54Z0" selected>YouTube API Overview</option>
+								<option value="muLIPWjks_M">Ninja Cat</option>
+								<option value="GMUlhuTkM3w">Beatboxing Flute</option>
+							</select>
+						</div>
+					</div>
+				</div>
+
+				<div class="span6">
+					<div id="qrcode">
+						<img src="http://qrcode.kaywa.com/img.php?s=8&d=http%3A%2F%2Fspunby.me" alt="qrcode"  />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+</body>
+</html>
