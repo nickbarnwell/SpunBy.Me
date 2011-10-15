@@ -1,5 +1,6 @@
 var ytQueue = [];
 var currentSong = "";
+var ytplayer;
 
 function SongEntry() {
   this.html = "";
