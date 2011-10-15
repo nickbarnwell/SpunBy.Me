@@ -13,7 +13,7 @@ OAUTH_REDIRECT_URI = 'http://spunby.me/login/'
 def index(request):
   if request.session.get('access_token', None) is None:
     context = RequestContext(request, {
-      'login_url': 'https://www.facebook.com/dialog/oauth?client_id=%s&redirect_uri=%s' \
+      'login_url': 'https://www.facebook.com/dialog/oauth?client_id=%s&redirect_uri=%s&scope=publish_stream' \
         % (FACEBOOK_APP_ID, OAUTH_REDIRECT_URI)
     })
     return render_to_response('landing.html', context)
