@@ -88,6 +88,10 @@ class Party(models.Model):
   def sorted_queue(self):
     return sorted(QueueData.objects.filter(party=self), key=lambda s: s.confidence)
   
+  @property
+  def viewer_url(self):
+    return 'http://spunby.me/party/%s' % self.slug
+
   def pop(self):
     queue = sorted(QueueData.objects.filter(party=self), key=lambda s: s.confidence)
     if len(queue) > 0:

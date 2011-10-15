@@ -64,7 +64,7 @@
 
 				<div class="span4">
 					<div id="qrcode">
-						{% qr_from_text "http://spunby.me/party/"+{{ party.slug }} "l" %}
+						{% qr_from_text party.viewer_url "l" %}
 					</div>
 				</div>
 			</div>
