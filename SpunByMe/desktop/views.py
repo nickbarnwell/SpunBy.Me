@@ -1,7 +1,8 @@
 from django.http import HttpResponse
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.template import Context, RequestContext, loader
 import urllib2
+from common.models import Party
 
 FACEBOOK_APP_ID = '252389068144629'
 FACEBOOK_API_SECRET = '794cb30ba61fb6609bdd81a9b61eead2'
@@ -9,7 +10,7 @@ OAUTH_REDIRECT_URI = 'http://spunbyme.heroku.com/login/'
 
 def index(request):
   if request.session.get('access_token', None) is None:
-    context = Context({
+    context = RequestContext(request, {
       'login_url': 'https://www.facebook.com/dialog/oauth?client_id=%s&redirect_uri=%s' \
         % (FACEBOOK_APP_ID, OAUTH_REDIRECT_URI)
     })
@@ -37,6 +38,9 @@ def login(request):
     return redirect('desktop.views.index')
 
 def party(request, slug):
-  t = loader.get_template('party.html')
-  c = Context({})
-  return HttpResponse(t.render(c))
+  party = get_object_or_404(Party, slug=slug)
+  context = RequestContext(request, {
+    'party': party
+  })
+  return render_to_response('dashboard.html', context)
+
