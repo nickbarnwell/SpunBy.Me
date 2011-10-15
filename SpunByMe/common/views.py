@@ -60,8 +60,3 @@ def get_next_song(request, pid):
   else:
     result = cjson.encode({'status':'Failure'})
   return HttpResponse(result, mimetype='application/json')
-def skip(request,pid):
-  party = Party.objects.get(pk=pid)
-  song = party.pop()
-  party.save()
-  return queue(request, pid)
