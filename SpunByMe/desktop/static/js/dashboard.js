@@ -7,16 +7,16 @@ $(document).ready(function() {
 });
 
 function generateEntry(track) {
-  $entry = $('<div class="entry">');
-  $info = $('<div class="info">');
-  $vote = $('<div class="vote">');
-    $upvote = $('<div class="upvote">');
-    $votecount = $('<div class="votecount">10</div>');//10
-    $downvote = $('<div class="downvote">');
+  var $entry = $('<div class="entry">');
+  var $info = $('<div class="info">');
+  var $vote = $('<div class="vote">');
+    var $upvote = $('<div class="upvote">');
+    var $votecount = $('<div class="votecount">10</div>');//10
+    var $downvote = $('<div class="downvote">');
 
-  $song_title = $('<h2>Around the World</h2>');
+  var $song_title = $('<h2></h2>');
   $song_title.text(track.title);
-  $artist = $('<h3>Daft Punk</h3>');
+  var $artist = $('<h3></h3>');
   $artist.text(track.artist);
 
   $upvote.appendTo($vote);
