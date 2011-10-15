@@ -4,29 +4,19 @@ App.views.Viewport = Ext.extend(Ext.Carousel, {
 	     var intialItems = new Array();
 		 var party = document.getElementById('party_id').value;
 		 $.ajax({
-            url: 'http://phoenix.dyn.cs.washington.edu:8000/party/' + party + '/',
+            url: '/party/' + party + '/queue',
             dataType: 'json',
             success: function(json) {
-                items.push({
+                for (var song in json){
+                	items.push({
 					slug: '',
-					title: json['title'],
-					artist: json['artist'],
-					songid: json['song_id'],
-					videoid: json['video_id']
-				});
-            }
-        });
-		$.ajax({
-            url: 'http://phoenix.dyn.cs.washington.edu:8000/party/' + party + '/next',
-            dataType: 'json',
-            success: function(json) {
-                items.push({
-					slug: '',
-					title: json['title'],
-					artist: json['artist'],
-					songid: json['song_id'],
-					videoid: json['video_id']
-				});
+					title: song['title'],
+					artist: song['artist'],
+					songid: song['song_id'],
+					videoid: song['video_id']
+					});
+                }
+                
             }
         });
         Ext.apply(this, {
@@ -40,7 +30,7 @@ App.views.Viewport = Ext.extend(Ext.Carousel, {
             	beforecardswitch: function() {
 					var me = this;
 					$.ajax({
-		                url: 'http://phoenix.dyn.cs.washington.edu:8000/party/' + party + '/next',
+		                url: '/party/' + party + '/next',
 		                dataType: 'json',
 		                success: function(json) {
 		                    var item = {
