@@ -4,7 +4,7 @@ $(document).ready(function() {
       generateEntry(track);
     }
   });
-}
+});
 
 function generateEntry(track) {
   $entry = $('<div class="entry">');
@@ -27,7 +27,7 @@ function generateEntry(track) {
   $song_title.appendTo($info);
   $artist.appendTo($info);
 
-  $info.appendto($entry);
+  $info.appendTo($entry);
 
 }
 
