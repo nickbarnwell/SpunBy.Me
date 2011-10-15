@@ -15,7 +15,7 @@ def add_song(request, pid):
   title = request.GET.get('title')
   party = Party.objects.get(pk=pid)
 
-  s = Song().add_song(artist, title)
+  s = Song.add_song(artist, title)
   QueueData(party=party, song=song).save()
   result = cjson.encode(s.to_hash())
   return HttpResponse(result, mimetype='application/json')
