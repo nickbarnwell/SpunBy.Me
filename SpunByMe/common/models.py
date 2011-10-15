@@ -13,6 +13,11 @@ YOUTUBE_DEVELOPER_KEY = 'AI39si6AP91ntgKKeVQCWuRve6O-eLOunrtzdufBwlXX3HpiPg5Hmrz
 class User(models.Model):
   first_name = models.CharField(blank=False, max_length=255)
   last_name = models.CharField(blank=False, max_length=255)
+  fb_username = models.CharField(blank=False, max_length=255)
+
+  @property
+  def thumbnail_url(self):
+    return 'http://graph.facebook.com/%s/picture' % self.fb_username
 
 class Song(models.Model):
   title = models.CharField(blank=False, max_length=255)
