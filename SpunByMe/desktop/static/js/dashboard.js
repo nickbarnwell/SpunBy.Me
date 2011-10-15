@@ -1,8 +1,12 @@
+var ytQueue = [];
+
 $(document).ready(function() {
   $.getJSON('http://phoenix.dyn.cs.washington.edu:8000/party/1/queue',function(data) {
     for (track in data) {
+      ytQueue.push(data[track].url);
       generateEntry(data[track]);
     }
+    loadVideo(ytQueue.pop());
   });
 });
 
@@ -42,9 +46,9 @@ function updateHTML(elmId, value) {
 }
 
 // Loads the selected video into the player.
-function loadVideo() {
-  var selectBox = document.getElementById("videoSelection");
-  var videoID = selectBox.options[selectBox.selectedIndex].value
+function loadVideo(videoID) {
+  // var selectBox = document.getElementById("videoSelection");
+  // var videoID = selectBox.options[selectBox.selectedIndex].value
   
   if(ytplayer) {
     ytplayer.loadVideoById(videoID);
