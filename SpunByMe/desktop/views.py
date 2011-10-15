@@ -2,11 +2,12 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.template import Context, RequestContext, loader
 import urllib2
-from common.models import Party
+from common.models import Party, User
+import cjson
 
 FACEBOOK_APP_ID = '252389068144629'
 FACEBOOK_API_SECRET = '794cb30ba61fb6609bdd81a9b61eead2'
-OAUTH_REDIRECT_URI = 'http://spunbyme.heroku.com/login/'
+OAUTH_REDIRECT_URI = 'http://spunbyme.herokuapp.com/login/'
 
 def index(request):
   if request.session.get('access_token', None) is None:
@@ -16,7 +17,7 @@ def index(request):
     })
     return render_to_response('landing.html', context)
   else:
-    return HttpResponse('Your access token is %s' % request.session.get('access_token'))
+    return HttpResponse('Hello, %s' % request.session['user'].first_name)
 
 def dashboard(request):
   return render_to_response('dashboard.html', RequestContext(request, {}))
@@ -35,6 +36,15 @@ def login(request):
     response = urllib2.urlopen(oauth_url).read()
     access_token = response.split('=')[1].split('&')[0]
     request.session['access_token'] = access_token
+    me = cjson.decode(
+      urllib2.urlopen(
+        'https://graph.facebook.com/me/?access_token=%s' % access_token))
+    user = User()
+    user.first_name = me['first_name']
+    user.last_name = me['last_name']
+    user.fb_username = me['username']
+    user.save()
+    request.session['user'] = user
     return redirect('desktop.views.index')
 
 def party(request, slug):
