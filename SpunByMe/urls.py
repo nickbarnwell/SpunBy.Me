@@ -5,15 +5,23 @@ from django.conf.urls.defaults import patterns, include, url
 # admin.autodiscover()
 
 urlpatterns = patterns('',
+    #API Lines
     ('^search/', 'common.views.search'),
     ('^party/(?P<pid>\d+)/add_song', 'common.views.add_song'),
     ('^party/(?P<pid>\d+)/queue', 'common.views.queue'),
     ('^party/(?P<pid>\d+)/next', 'common.views.get_next_song'),
     ('^party/(?P<pid>\d+)/playing', 'common.views.now_playing'),
-    ('^party/(?P<slug>\w+)/', 'desktop.views.party'),
-    ('^dashboard/', 'desktop.views.dashboard'),
+
+    #View Lines
+    ('^$', 'desktop.views.index'),
+    ('^party/new', 'desktop.views.new_party'),
+    ('^party/(?P<slug>\w+)', 'desktop.views.party_vote'),
+    ('^party/(?P<slug>\w+)/dashboard', 'desktop.views.party_dash'),
+    ('^dashboard', 'desktop.views.dashboard'),
+
     ('^login/', 'desktop.views.login'),
-    ('$', 'desktop.views.index'),
+
+    #Form Lines
     # Examples:
     # url(r'^$', 'SpunByMe.views.home', name='home'),
     # url(r'^SpunByMe/', include('SpunByMe.foo.urls')),

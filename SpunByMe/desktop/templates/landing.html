@@ -4,7 +4,21 @@
 
 
 {% block content %}
+{% if 1 %}
+<div class='roundbox'>
+Hey {{user.first_name}}, welcome to SpunBy.Me! Ready to get started?<br><br>
+</div>
+<div class='roundbox'>
+<h1 class='center'>Step one? Choose a name!</h1>
+<form action="/party/new" method="POST">{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="Submit" />
+</form>
+
+</div>
+{% else %}
 <div class='roundbox'>
 	<a href="{{login_url}}">Login with facebook</a>
 </div>
+{% endif %}
 {% endblock %}

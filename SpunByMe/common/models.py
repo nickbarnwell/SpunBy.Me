@@ -70,10 +70,17 @@ class Party(models.Model):
   created_at = models.DateTimeField(auto_now_add=True, blank=False)
   songs = models.ManyToManyField(Song, through='QueueData')
   slug = models.SlugField(editable=False)
+  owner = models.ForeignKey(User)
+  _now_playing = models.IntegerField(blank=True, null=True)
+
+  @property
+  def now_playing(self):
+    return Song.objects.get(pk=self._now_playing)
 
   def __unicode__(self):
-    return self.name
-
+    return '<Party: %s>' % self.name
+  
+  @property
   def sorted_queue(self):
     return sorted(QueueData.objects.filter(party=self), key=lambda s: s.confidence)
   
@@ -82,6 +89,7 @@ class Party(models.Model):
     if len(queue) > 0:
       s = qd.song
       qd.delete()
+      self.now_playing = s.pk
       return s
     else:
       return None
@@ -90,9 +98,13 @@ class Party(models.Model):
   def expired(self):
     return datetime.datetime.now() >= self.created_at+datetime.timedelta(24)
 
+  @models.permalink
+  def get_absolute_url(self):
+    return ('desktop.views.party_dash', (), {'slug':self.slug})
+
   def save(self, *args, **kwargs):
     if not self.id:
-        self.slug = slugify(self.slug)
+        self.slug = slugify(self.name)
         super(Party, self).save(*args, **kwargs)
 
 
