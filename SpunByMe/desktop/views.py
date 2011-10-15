@@ -11,15 +11,14 @@ FACEBOOK_API_SECRET = '794cb30ba61fb6609bdd81a9b61eead2'
 OAUTH_REDIRECT_URI = 'http://spunbyme.herokuapp.com/login/'
 
 def index(request):
-  # if request.session.get('access_token', None) is None:
-  #   context = RequestContext(request, {
-  #     'login_url': 'https://www.facebook.com/dialog/oauth?client_id=%s&redirect_uri=%s' \
-  #       % (FACEBOOK_APP_ID, OAUTH_REDIRECT_URI)
-  #   })
-  #   return render_to_response('landing.html', context)
-  # else:
-  
-  context = RequestContext(request, {'form':PartyForm()})#'user':request.session['user'], })
+  if request.session.get('access_token', None) is None:
+    context = RequestContext(request, {
+      'login_url': 'https://www.facebook.com/dialog/oauth?client_id=%s&redirect_uri=%s' \
+        % (FACEBOOK_APP_ID, OAUTH_REDIRECT_URI)
+    })
+    return render_to_response('landing.html', context)
+  else:
+    context = RequestContext(request, {'form':PartyForm()})#'user':request.session['user'], })
   return render_to_response('landing.html', context)
 
 def dashboard(request):
