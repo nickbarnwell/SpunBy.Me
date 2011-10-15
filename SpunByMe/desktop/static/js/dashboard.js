@@ -1,4 +1,5 @@
 var ytQueue = [];
+var currentSong = "";
 
 function SongEntry() {
   this.html = "";
@@ -13,10 +14,12 @@ function getData() {
       var newSong = new SongEntry();
       $html = generateEntry(data[track]);
       newSong.html = $html;
+      newSong.html.appendTo($("#playlist"));
       newSong.video_id = data[track].video_id;
       ytQueue.push(newSong);
     }
-    loadVideo(ytQueue.pop());
+    currentSong = ytQueue.pop();
+    loadVideo(currentSong);
   });
 };
 
