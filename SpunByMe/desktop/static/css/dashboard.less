@@ -1,0 +1,77 @@
+.rounded-corners (@radius: 5px) {
+  border-radius: @radius;
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+}
+
+.box-shadow(@shadow: 0 1px 3px rgba(0,0,0,.25)) {
+  -webkit-box-shadow: @shadow;
+  -moz-box-shadow: @shadow;
+  box-shadow: @shadow;
+}
+
+body {
+	background-image:url('../img/real_cf.png');
+	background-repeat: repeat;
+}
+
+html,body{margin:0; padding:0; height:100%}
+
+#playlist {
+	.rounded-corners;
+	.box-shadow;
+	background-color:white; 
+}
+
+h2 {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.widgetheader {
+  background-color:orange;
+  .rounded-corners;
+  font-size:22px;
+  padding:10px;
+}
+
+#container {
+  position:relative;
+  top:10px;
+  left:20px;
+}
+
+.entry {
+  border-bottom: 2px solid black;
+  padding: 10px;
+  overflow:hidden;
+}
+
+#header {
+  position:relative;
+  top:5px;
+  left:20px;
+}
+
+.info {
+  display:block;
+}
+
+.vote {
+  float:right;
+  padding: 10px 20px 0;
+}
+
+#upvote, #downvote {
+  background-image:url('../img/arrows.png');
+  background-repeat:none;
+  width:12px;
+  height:15px;
+}
+
+#upvote {
+  
+}
+
+#downvote {
+  background-position:12px;
+}
