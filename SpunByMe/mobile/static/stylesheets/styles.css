@@ -6,6 +6,7 @@ html, .x-fullscreen {
   background-repeat: no-repeat;
   background-size: contain;
   background-position: 50% 0;
+  background-image: url('http://spunby.me/static/noalbumart.png');
 }
 
 .paintingcard {
@@ -14,7 +15,7 @@ html, .x-fullscreen {
 .infocard {
   color:#fff;
   background-color: #2d2d2d;
-  background-image: url('http://spunby.me/images/noise.png');
+  background-image: url('http://spunby.me/static/images/noise.png');
 }
 .infocard .x-html,
 .infocard .x-html a,

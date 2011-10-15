@@ -102,7 +102,7 @@ class Party(models.Model):
       return None
 
   def __unicode__(self):
-    return '<Party: %s>' % self.name
+    return 'Party: %s' % self.name
   
   @property
   def sorted_queue(self):
@@ -134,6 +134,8 @@ class Party(models.Model):
   def save(self, *args, **kwargs):
     if not self.id:
       self.slug = slugify(self.name)
+      s=Song.add_song('The Flaming Lips', 'Test')
+      QueueData(song=s, party=self).save()
     super(Party, self).save(*args, **kwargs)
     
 
