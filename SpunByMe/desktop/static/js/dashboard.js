@@ -2,6 +2,12 @@ var ytQueue = [];
 var currentSong = "";
 var ytplayer;
 
+$(document).ready(function() {
+  $("#searchform .btn").click(function() {
+    $.modal("<div><h1>SimpleModal</h1></div>");
+  });
+});
+
 function SongEntry() {
   this.html = "";
   this.video_id = "";
