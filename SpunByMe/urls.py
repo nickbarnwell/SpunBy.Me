@@ -11,6 +11,7 @@ urlpatterns = patterns('',
     ('^party/(?P<pid>\d+)/next', 'common.views.get_next_song'),
     ('^party/(?P<pid>\d+)/playing', 'common.views.now_playing'),
     ('^party/(?P<slug>\w+)/', 'desktop.views.party'),
+    ('^dashboard/', 'desktop.views.dashboard'),
     ('^login/', 'desktop.views.login'),
     ('', 'desktop.views.index'),
     # Examples:
