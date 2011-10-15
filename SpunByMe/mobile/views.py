@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from common.models import Party
 
 def party_vote(request, slug):
