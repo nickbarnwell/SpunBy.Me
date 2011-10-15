@@ -51,7 +51,7 @@ def get_next_song(request, pid):
   if song:
     if 'access_token' in request.session:
       data = urllib.urlencode({
-        'message': 'started playing %s - %s on spunby.me' % (song.artist, song.title)
+        'message': 'started playing %s - %s on http://spunby.me' % (song.artist, song.title)
       })
       urllib.urlopen('https://graph.facebook.com/me/feed?access_token=%s' % request.session['access_token'], data)
     result = cjson.encode(song.to_hash())
