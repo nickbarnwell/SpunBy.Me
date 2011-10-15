@@ -8,6 +8,14 @@ class Migration(SchemaMigration):
 
     def forwards(self, orm):
         
+        # Adding model 'User'
+        db.create_table('common_user', (
+            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('first_name', self.gf('django.db.models.fields.CharField')(max_length=255)),
+            ('last_name', self.gf('django.db.models.fields.CharField')(max_length=255)),
+        ))
+        db.send_create_signal('common', ['User'])
+
         # Adding model 'Song'
         db.create_table('common_song', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
@@ -20,8 +28,9 @@ class Migration(SchemaMigration):
         # Adding model 'Party'
         db.create_table('common_party', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=50)),
+            ('name', self.gf('django.db.models.fields.CharField')(unique=True, max_length=50)),
             ('created_at', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
+            ('slug', self.gf('django.db.models.fields.SlugField')(max_length=50, db_index=True)),
         ))
         db.send_create_signal('common', ['Party'])
 
@@ -32,13 +41,16 @@ class Migration(SchemaMigration):
             ('party', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['common.Party'])),
             ('added_at', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
             ('upvotes', self.gf('django.db.models.fields.IntegerField')(default=1)),
-            ('downvotes', self.gf('django.db.models.fields.IntegerField')(default=1)),
+            ('downvotes', self.gf('django.db.models.fields.IntegerField')(default=0)),
         ))
         db.send_create_signal('common', ['QueueData'])
 
 
     def backwards(self, orm):
         
+        # Deleting model 'User'
+        db.delete_table('common_user')
+
         # Deleting model 'Song'
         db.delete_table('common_song')
 
@@ -54,13 +66,14 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'Party'},
             'created_at': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
+            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '50'}),
+            'slug': ('django.db.models.fields.SlugField', [], {'max_length': '50', 'db_index': 'True'}),
             'songs': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['common.Song']", 'through': "orm['common.QueueData']", 'symmetrical': 'False'})
         },
         'common.queuedata': {
             'Meta': {'object_name': 'QueueData'},
             'added_at': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'downvotes': ('django.db.models.fields.IntegerField', [], {'default': '1'}),
+            'downvotes': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'party': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['common.Party']"}),
             'song': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['common.Song']"}),
@@ -72,6 +85,12 @@ class Migration(SchemaMigration):
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'swf_url': ('django.db.models.fields.URLField', [], {'max_length': '200'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '255'})
+        },
+        'common.user': {
+            'Meta': {'object_name': 'User'},
+            'first_name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'last_name': ('django.db.models.fields.CharField', [], {'max_length': '255'})
         }
     }
 
