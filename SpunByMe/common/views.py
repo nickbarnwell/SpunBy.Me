@@ -5,9 +5,8 @@ import cjson
 
 
 def search(request):
-  artist = request.GET.get('artist')
-  title = request.GET.get('title')
-  result = Song().search('%(artist)s %(title)s' % locals())
+  q = request.GET.get('q')
+  result = Song().search('%q' % q)
   return HttpResponse(cjson.encode(result), mimetype='application/json')
 
 def add_song(request, pid):
