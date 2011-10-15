@@ -161,10 +161,14 @@ class QueueData(models.Model):
 
     return votes
 
-  def find_by_party_song(pid, sid):
+  def find_by_party_song(self, pid, sid):
     objs = QueueData.objects.filter(song=Song.objects.get(pk=sid), party=Party.objects.get())
     if objs.count() != 0:
       return objs[0]
+
+  @property
+  def votes(self):
+    return self.upvotes + self.downvotes
 
   def _confidence(self):
     n = self.upvotes + self.downvotes

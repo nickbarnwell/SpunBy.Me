@@ -33,7 +33,7 @@ App.views.Viewport = Ext.extend(Ext.Carousel, {
 			listeners: {
             	beforecardswitch: function() {
 					var me = this;
-					$.ajax({
+					/*$.ajax({
 						async:false,
 		                url: '/party/' + party + '/next',
 		                dataType: 'json',
@@ -50,7 +50,7 @@ App.views.Viewport = Ext.extend(Ext.Carousel, {
 								this.doLayout();
 							}
 		                }
-		            });
+		            });*/
 					
             	}
         	}

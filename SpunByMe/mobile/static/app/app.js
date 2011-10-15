@@ -5,5 +5,5 @@ App = new Ext.Application({
         this.views.viewport = new this.views.Viewport();
     }
 });
-$(document).onchange( function(){
+$(document).ready(function(){
 });

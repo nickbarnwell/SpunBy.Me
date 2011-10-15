@@ -19,7 +19,7 @@
             styleHtmlContent: true,
             tpl: [
                 "<div>",
-                "  <span>Did you like this song?: <a href=\"#\">yes</a> | <a href=\"#\">no</a></span>",
+                "  <span id=\"voting\">Did you like this song?: <a id=\"vote_yes\">yes</a> | <a id=\"vote_no\">no</a></span>",
 				'  <br />',
 				'<fieldset class="search">',
 				'<input type="text" class="box" id="q" name="q" value="Enter a Song or Artist" onclick="if(this.value == \'Enter a Song or Artist\') {this.value = \'\';}" onkeydown="this.style.color = \'#000000\';" />',
@@ -36,6 +36,30 @@
                     pane.setActiveItem('info_' + pane.slug);
                     this.setText('Album Art');
                     var party = $("#party_id").val();
+                    $("#vote_yes").live('click', function(e) {
+                        $(this).parent().fadeOut(function(){
+                            $.ajax({
+                                url:'/vote/?party_id=' + party + '&song_id=' + pane.songid + '&type=up',
+                                dataType: 'json',
+                                success: function(json) {
+                                  $(this).html("This has " + json.votes + " Votes");
+                                  $(this).fadeIn();
+                                }
+                            });
+                        });
+                    });
+                    $("#vote_no").live('click', function(e) {
+                        $(this).parent().fadeOut(function(){
+                            $.ajax({
+                                url:'/vote/?party_id=' + party + '&song_id=' + pane.songid + '&type=down',
+                                dataType: 'json',
+                                success: function(json) {
+                                  $(this).html("This has " + json.votes + " Votes");
+                                  $(this).fadeIn();
+                                }
+                            });
+                        });
+                    });
                     $('#q').bind('keypress', function(e) {
                         if(e.keyCode==13){
                             $.ajax({
