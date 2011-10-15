@@ -6,6 +6,7 @@ from django.conf.urls.defaults import patterns, include, url
 
 urlpatterns = patterns('',
     ('^search/', 'Common.views.search'),
+    ('^add_song/', 'Common.views.add_song'),
     ('^party/(?P<slug>\w+)/', 'Desktop.views.party'),
     # Examples:
     # url(r'^$', 'SpunByMe.views.home', name='home'),
