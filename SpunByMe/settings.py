@@ -110,7 +110,6 @@ TEMPLATE_DIRS = (
 )
 
 SPUNBYME_APPS = (
-  'party',
   'common',
   'desktop',
 )
