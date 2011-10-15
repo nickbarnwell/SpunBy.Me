@@ -7,6 +7,7 @@ App.views.Viewport = Ext.extend(Ext.Carousel, {
             url: '/party/' + party + '/queue',
             dataType: 'json',
             success: function(json) {
+            	console.log(json)
                 for (var song in json){
                 	intialItems.push({
 					slug: '',
@@ -16,6 +17,7 @@ App.views.Viewport = Ext.extend(Ext.Carousel, {
 					videoid: song['video_id']
 					});
                 }
+                console.log(intialItems);
                 
             }
         });
