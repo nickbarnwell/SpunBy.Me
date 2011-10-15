@@ -18,7 +18,7 @@ urlpatterns = patterns('',
     ('^party/(?P<slug>\w+)', 'mobile.views.party_vote'),
     ('^party/(?P<slug>\w+)/dashboard', 'desktop.views.party_dash'),
     ('^dashboard', 'desktop.views.dashboard'),
-    ('^$', 'desktop.views.index'),`
+    ('^$', 'desktop.views.index'),
 
 
 
