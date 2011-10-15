@@ -110,9 +110,9 @@ TEMPLATE_DIRS = (
 )
 
 SPUNBYME_APPS = (
-  'Party',
-  'Common',
-  'Desktop',
+  'party',
+  'common',
+  'desktop',
 )
 
 INSTALLED_APPS = (
@@ -122,7 +122,6 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Common',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     'qrcode',
