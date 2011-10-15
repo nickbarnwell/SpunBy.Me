@@ -11,7 +11,7 @@ function SongEntry() {
 function getQueue() {
   var pid = $('#party_id').val();
   $.getJSON('/party/'+pid+'/queue/',function(data) {
-    $("#playlist").children().remove();
+    $("#playlist .entry").remove();
     for (track in data) {
       var newSong = new SongEntry();
       $html = generateEntry(data[track]);
