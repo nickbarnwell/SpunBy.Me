@@ -22,7 +22,7 @@ def login(request):
     return render_to_response('login_error.html', Context({
       'error_reason': request.GET.get('error_reason'),
       'error_description': request.GET.get('error_description')
-    })
+    }))
   else:
     oauth_url = 'https://graph.facebook.com/oauth/access_token?' + \
                 'client_id=%s&redirect_uri=%s&client_secret=%s&code=%s' % \
