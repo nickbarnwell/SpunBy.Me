@@ -62,7 +62,7 @@ def new_party(request):
     form = PartyForm(request.POST)
     if form.is_valid():
       user = User.objects.get(fb_username=request.session['user'].fb_username)
-      p, created = Party.objects.get_or_create(name=form.cleaned_data['subject'], user=user)
+      p, created = Party.objects.get_or_create(name=form.cleaned_data['subject'], owner=user)
       return redirect(p)
     else:
       redirect
