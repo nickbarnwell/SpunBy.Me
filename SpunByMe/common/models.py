@@ -1,10 +1,8 @@
 from django.db import models
-# Create your models here.
 
-import gdata.youtube
-import gdata.youtube.service
+import gdata.youtube, gdata.youtube.service
 import pylast
-import math
+import math, datetime
 
 
 LASTFM_API_KEY = '522cc370a4cc1ee8029e065e08a168fb'
@@ -64,6 +62,19 @@ class Party(models.Model):
   def __unicode__(self):
     return self.name
 
+  def sorted_queue(self):
+    array = sorted(QueueData.objects.filter(party=self), key=lambda s: s.confidence)
+    return [s.song for s in array]
+  
+  def pop(self):
+    queue = sorted(QueueData.objects.filter(party=self), key=lambda s: s.confidence)
+    if len(queue) > 0:
+      s = qd.song
+      qd.delete()
+      return s
+    else:
+      return None
+
   @property
   def expired(self):
     return datetime.datetime.now() >= self.created_at+datetime.timedelta(24)
@@ -77,13 +88,16 @@ class QueueData(models.Model):
 
   def vote(self, vtype):
     if vtype == 'up':
-      votes = self.upvotes += 1
+      self.upvotes += 1
+      votes = self.upvotes
     elif vtype == 'down':
-      votes = self.downvotes -= 1
+      self.downvotes -= 1
+      votes = self.upvotes
+
     return votes
 
   def find_by_party_song(pid, sid):
-    objs = QueueData.objects.filter(song=Song.get(pk=sid), party=Party.get())
+    objs = QueueData.objects.filter(song=Song.objects.get(pk=sid), party=Party.objects.get())
     if objs.count() != 0:
       return objs[0]
 
