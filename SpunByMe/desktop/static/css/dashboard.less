@@ -36,9 +36,8 @@ h2 {
 }
 
 #container {
-  position:relative;
-  top:10px;
-  left:20px;
+  clear: both;
+  padding-left: 20px;
 }
 
 .entry {
@@ -48,9 +47,12 @@ h2 {
 }
 
 #header {
-  position:relative;
+  float: left;
+  overflow: hidden;
+  display: block;
   padding-top:5px;
   padding-left:20px;
+  padding-bottom: 20px;
 }
 
 .info {
@@ -85,9 +87,12 @@ h2 {
 
 fieldset.search {
   border: none;
-  width: 340px;
+  width: 360px;
   margin: 0 0;
   background: #222;
+}
+#header img {
+  padding-right: 20px;
 }
 .search input, .search button {
   border: none;
@@ -103,14 +108,17 @@ fieldset.search {
   margin-right: 5px;
 }
 .search input.box:focus {
+  display: inline-block;
   background: #616161 url(search_bg.gif) no-repeat left -38px;
   outline: none;
 }
 .search .btn {
+  display: inline-block;
   width: 18px;
   height: 18px;
   cursor: pointer;
   text-indent: -9999px;
+  margin-top: 4px;
   background: #fbc900 url(search_bg.gif) no-repeat top right;
 }
 .search .btn:hover {
@@ -132,4 +140,8 @@ fieldset.search {
 .votecount {
   font-size: 30px;
   font-weight: bold;
+}
+
+ul, li {
+  list-style: none;
 }
