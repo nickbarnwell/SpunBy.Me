@@ -8,6 +8,7 @@ App.views.Viewport = Ext.extend(Ext.Carousel, {
             dataType: 'json',
             async: false,
             success: function(json) {
+            	console.log(json);
                 for(song in json) {
                 	var song = json[song];
 	                initialItems.push({
@@ -15,7 +16,7 @@ App.views.Viewport = Ext.extend(Ext.Carousel, {
 					title: song['title'],
 					artist: song['artist'],
 					songid: song['song_id'],
-					videoid: song['video_id']
+					albumart: song['albumart']
 				});
             }}
         });
@@ -40,7 +41,7 @@ App.views.Viewport = Ext.extend(Ext.Carousel, {
 								title: json['title'],
 								artist: json['artist'],
 								songid: json['song_id'],
-								videoid: json['video_id']
+								albumart: json['albumart']
 							};
 							if(this.getItems().peek().songid != item.songid){
 								me.add(item);

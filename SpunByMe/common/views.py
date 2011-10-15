@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from common.models import * 
 import cjson
 
@@ -15,10 +15,10 @@ def add_song(request, pid):
   party = Party.objects.get(pk=pid)
 
   s = Song.add_song(artist, title)
-  QueueData(party=party, song=song).save()
+  QueueData(party=party, song=s).save()
   result = cjson.encode(s.to_hash())
-  return HttpResponse(result, mimetype='application/json')
-
+  return redirect(party.viewer_url)
+  
 def vote(request):
   party_id = int(request.GET.get('party_id'))
   song_id = int(request.GET.get('song_id'))

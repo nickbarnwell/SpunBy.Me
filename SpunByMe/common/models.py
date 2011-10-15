@@ -106,7 +106,7 @@ class Party(models.Model):
   
   @property
   def viewer_url(self):
-    return 'http://spunby.me/party/%s' % self.slug
+    return '/party/%s' % self.slug
 
   def pop(self):
     queue = sorted(QueueData.objects.filter(party=self), key=lambda s: s.confidence)

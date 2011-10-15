@@ -1,10 +1,16 @@
-App.views.PaintingCard = Ext.extend(Ext.Panel, {
+    App.views.PaintingCard = Ext.extend(Ext.Panel, {
     initComponent: function(){
         var pane = this,
-
+        
         imageCard = {
             id:  'image_' + pane.slug,
             cls: 'painting ' + pane.slug,
+            styleHtmlContent: true,
+            tpl: [
+                "<div>",
+                '<img src="' + pane.albumart + '"/>',
+                "</div>"
+            ]
         },
 
         infoCard = {
@@ -29,12 +35,53 @@ App.views.PaintingCard = Ext.extend(Ext.Panel, {
                 if (this.getText() == 'Suggest a Song') {
                     pane.setActiveItem('info_' + pane.slug);
                     this.setText('Album Art');
+                    var party = $("#party_id").val();
+                    $('#q').bind('keypress', function(e) {
+                        if(e.keyCode==13){
+                            $.ajax({
+                            async: false,
+                            url: '/search/?q=' + $(this).val() + '/',
+                            dataType: 'json',
+                            success: function(json) {
+                                var html = '<ul>';
+                                for (song in json){
+                                    var song = json[song];
+                                    html += '<li><a href="/party/' + party + '/add_song?artist=' + song['artist'] + '&amp;title=' + song['title']
+                                    + '">' + song['title'] + ' - ' + song['artist'] + '</a></li>';
+                                }
+                                $("#queryresults").html(html + '</ul>');
+                            }
+                        });
+                        }
+                    });
+                    $('.search .btn').live('click', function(e) {
+                        if(e.keyCode==13){
+                            $.ajax({
+                            url: '/search/?q=' + $(this).val() + '/',
+                            async: false,
+                            dataType: 'json',
+                            success: function(json) {
+                                var html = '<ul>';
+                                for (song in json){
+                                    var song = json[song];
+                                 html += '<li><a href="/party/' + party + '/add_song?artist=' + song['artist'] + '&amp;title=' + song['title']
+                                    + '">' + song['title'] + ' - ' + song['artist'] + '</a></li>';
+                                }
+                                $("#queryresults").html(html + '</ul>');
+                            }
+                        });
+                        }
+                    });
+
+
                 } else {
                     pane.setActiveItem('image_' + pane.slug);
                     this.setText('Suggest a Song');
                 }
             }
         };
+        console.log(pane.albumart);
+         // $("#image_" + pane.slug).attr("style", "background-image: url(" + pane.albumart + ");");
 
         Ext.apply(this, {
 
@@ -47,7 +94,7 @@ App.views.PaintingCard = Ext.extend(Ext.Panel, {
             dockedItems: [
                 {
                     xtype: 'toolbar',
-                    title: '<img height="100%" style="vertical-align:middle; margin-right: 10px;" src="images/logo_onwhite.png" />' + pane.title + ' -  ' + pane.artist,
+                    title: '<img height="100%" style="vertical-align:middle; margin-right: 10px;" src="http://www.spunby.me/static/logo/logo_onwhite.png" />' + pane.title + ' -  ' + pane.artist,
                     items: [{ xtype: 'spacer' }, toggleButton ]
                 }
             ],
