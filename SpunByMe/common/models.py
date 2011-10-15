@@ -4,11 +4,14 @@ from django.template.defaultfilters import slugify
 import gdata.youtube, gdata.youtube.service
 import pylast
 import math, datetime
+import urllib2
+import cjson
 
 
 LASTFM_API_KEY = '522cc370a4cc1ee8029e065e08a168fb'
 LASTFM_API_SECRET = 'b5115b3e49d6c1db271f73146d4ef413'
 YOUTUBE_DEVELOPER_KEY = 'AI39si6AP91ntgKKeVQCWuRve6O-eLOunrtzdufBwlXX3HpiPg5HmrzX6M8G4iMwhBf6llht20idsxzpe9o_W41sRnBXXq7UcQ'
+ECHONEST_API_KEY = '7DDYRFE8SFUQ2RN2B'
 
 class User(models.Model):
   first_name = models.CharField(blank=False, max_length=255)
@@ -23,6 +26,7 @@ class Song(models.Model):
   title = models.CharField(blank=False, max_length=255)
   artist = models.CharField(blank=False, max_length=255)
   video_id = models.CharField(blank=False, max_length=64)
+  albumart_url = models.URLField()
   
   def __unicode__(self):
     return "%s - %s" % (self.title, self.artist)
@@ -33,6 +37,17 @@ class Song(models.Model):
     search = network.search_for_track('', query)
     tracks = search.get_next_page()
     return [dict(title=t.get_title(), artist=str(t.get_artist())) for t in tracks]
+
+  def load_albumart(self):
+    api_endpoint = 'http://developer.echonest.com/api/v4/song/search?api_key=%s&format=json&results=1&artist=%s&title=%s&bucket=id:7digital-US&bucket=audio_summary&bucket=tracks' % (ECHONEST_API_KEY, self.artist, self.title)
+    result = cjson.decode(urllib2.urlopen(api_endpoint).read())
+    try:
+      self.albumart_url = result['response']['songs'][0]['tracks'][0]['release_image']
+      return True
+    except KeyError:
+      return False
+    except IndexError:
+      return False
   
   def load_video_id(self):
     yt_service = gdata.youtube.service.YouTubeService()
@@ -54,7 +69,7 @@ class Song(models.Model):
     s = Song(title=title, artist=artist)
     res = Song.objects.filter(artist=artist, title=title)
     if res.count() == 0:
-      if s.load_video_id():
+      if s.load_video_id() and s.load_albumart():
         s.save()
       else:
         raise Exception
