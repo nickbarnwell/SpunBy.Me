@@ -8,18 +8,13 @@ html, .x-fullscreen {
   background-position: 50% 0;
 }
 
-.lmfao { background-image: url(../cache/lmfao.jpg); }
-.NickiMinaj { background-image: url(../cache/NickiMinaj.jpg); }
-.rickroll { background-image: url(../cache/rickroll.jpg); }
-.tron  { background-image: url('http://src.sencha.io/http://sencha-carousel.heroku.com/images/paintings/sitting.jpg'); }
-
 .paintingcard {
   background-color: #2d2d2d;
 }
 .infocard {
   color:#fff;
   background-color: #2d2d2d;
-  background-image: url('/images/noise.png');
+  background-image: url('http://spunby.me/images/noise.png');
 }
 .infocard .x-html,
 .infocard .x-html a,

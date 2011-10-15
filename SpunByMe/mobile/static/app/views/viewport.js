@@ -19,6 +19,7 @@ App.views.Viewport = Ext.extend(Ext.Carousel, {
 					songid: song['song_id'],
 					albumart: song['albumart']
 				});
+				console.log(song['albumart'])
             }}
         });
         console.log(initialItems)
