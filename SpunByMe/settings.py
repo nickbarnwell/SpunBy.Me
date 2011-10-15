@@ -111,7 +111,8 @@ TEMPLATE_DIRS = (
 
 SPUNBYME_APPS = (
   'Party',
-  'Common'
+  'Common',
+  'Desktop',
 )
 
 INSTALLED_APPS = (
