@@ -10,10 +10,13 @@ def search(request):
   result = Song().search('%(artist)s %(title)s' % locals())
   return HttpResponse(cjson.encode(result), mimetype='application/json')
 
-def add_song(request):
+def add_song(request, pid):
   artist = request.GET.get('artist')
   title = request.GET.get('title')
+  party = Party.objects.get(pk=pid)
+
   s = Song().add_song(artist, title)
+  QueueData(party=party, song=song).save()
   result = cjson.encode(s.to_hash())
   return HttpResponse(result, mimetype='application/json')
 
@@ -26,8 +29,8 @@ def vote(request):
   qd.save()
   return HttpResponse('{votes:%d}' % votes, mimetype='application/json')
 
-def now_playing(request):
-  party = Party.get(pk=int(request.GET.get('party_id')))
+def now_playing(request, pid):
+  party = Party.objects.get(pk=pid)
 
 def queue(request, pid):
   party = Party.objects.get(pk=pid)

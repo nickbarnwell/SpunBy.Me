@@ -1,7 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render_to_response, redirect
-from django.template import Context, loader
-from django.core.urlresolvers import reverse
+from django.template import Context, RequestContext, loader
 import urllib2
 
 FACEBOOK_APP_ID = '252389068144629'
@@ -17,6 +16,9 @@ def index(request):
     return render_to_response('landing.html', context)
   else:
     return HttpResponse('Your access token is %s' % request.session.get('access_token'))
+
+def dashboard(request):
+  return render_to_response('dashboard.html', RequestContext(request, {}))
 
 def login(request):
   if request.GET.get('error') is not None:

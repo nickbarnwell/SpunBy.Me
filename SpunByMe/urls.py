@@ -6,10 +6,12 @@ from django.conf.urls.defaults import patterns, include, url
 
 urlpatterns = patterns('',
     ('^search/', 'common.views.search'),
-    ('^add_song/', 'common.views.add_song'),
+    ('^party/(?P<pid>\d+)/add_song', 'common.views.add_song'),
     ('^party/(?P<pid>\d+)/queue', 'common.views.queue'),
     ('^party/(?P<pid>\d+)/next', 'common.views.get_next_song'),
+    ('^party/(?P<pid>\d+)/playing', 'common.views.now_playing'),
     ('^party/(?P<slug>\w+)/', 'desktop.views.party'),
+    ('^dashboard/', 'desktop.views.dashboard'),
     ('^login/', 'desktop.views.login'),
     ('', 'desktop.views.index'),
     # Examples:

@@ -2,9 +2,10 @@
 <head>
 <title>Spun By Me</title>
 
-<link rel="stylesheet" type="text/less" href="lib/bootstrap/lib/bootstrap.less" />
-<link rel="stylesheet" type="text/less" href="css/dashboard.less" />
-<script src="lib/bootstrap/less-1.1.3.min.js"></script>
+
+<link rel="stylesheet" type="text/less" href="{{STATIC_URL}}lib/bootstrap/lib/bootstrap.less" />
+<link rel="stylesheet" type="text/less" href="{{STATIC_URL}}css/dashboard.less" />
+<script src="{{STATIC_URL}}lib/bootstrap/less-1.1.3.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
 
 <script src="http://www.google.com/jsapi" type="text/javascript"></script>
@@ -12,12 +13,12 @@
       google.load("swfobject", "2.1");
     </script>    
 
-<script src="js/dashboard.js"></script>
+<script src="{{STATIC_URL}}js/dashboard.js"></script>
 </head>
 
 <body>
 <div id="header">
-	<img src="img/logo_grey_me.png" />
+	<img src="{{STATIC_URL}}img/logo_grey_me.png" />
 </div>
 <div id="container">
 	<div class="row">
