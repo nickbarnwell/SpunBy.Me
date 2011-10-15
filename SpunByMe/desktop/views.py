@@ -18,7 +18,7 @@ def index(request):
     })
     return render_to_response('landing.html', context)
   else:
-    context = RequestContext(request, {'form':PartyForm()})#'user':request.session['user'], })
+    context = RequestContext(request, {'form':PartyForm(), 'user':request.session['user']})
     return render_to_response('landing.html', context)
 
 def dashboard(request):

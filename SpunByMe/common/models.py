@@ -63,7 +63,7 @@ class Song(models.Model):
     return s
 
   def to_hash(self):
-    return {'title':self.title, 'artist':self.artist, 'video_id':self.video_id}
+    return {'title':self.title, 'artist':self.artist, 'video_id':self.video_id, 'song_id':self.pk}
 
 class Party(models.Model):
   name = models.CharField(max_length=50, unique=True)
