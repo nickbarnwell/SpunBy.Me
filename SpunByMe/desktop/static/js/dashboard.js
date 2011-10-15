@@ -26,7 +26,7 @@ $(document).ready(function() {
     evt.preventDefault();
     var pid = $('#party_id').val();
     $.getJSON('/party/'+pid+'/skip', function(data) {
-      getQueue();
+      getNextSong();
     });
   });
 });
