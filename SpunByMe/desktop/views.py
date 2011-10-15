@@ -36,10 +36,9 @@ def login(request):
     response = urllib2.urlopen(oauth_url).read()
     access_token = response.split('=')[1].split('&')[0]
     request.session['access_token'] = access_token
-    print access_token
     me = cjson.decode(
       urllib2.urlopen(
-        'https://graph.facebook.com/me/?access_token='+access_token))
+        'https://graph.facebook.com/me/?access_token=%s' % access_token).read())
     user = User()
     user.first_name = me['first_name']
     user.last_name = me['last_name']
