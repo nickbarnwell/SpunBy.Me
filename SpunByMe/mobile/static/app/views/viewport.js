@@ -45,7 +45,7 @@ App.views.Viewport = Ext.extend(Ext.Carousel, {
 								songid: json['song_id'],
 								albumart: json['albumart']
 							};
-							if(this.getItems().peek().songid != item.songid){
+							if(me.getItems().peek().songid != item.songid){
 								me.add(item);
 								this.doLayout();
 							}
