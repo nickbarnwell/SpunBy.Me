@@ -4,7 +4,6 @@ import gdata.youtube
 import gdata.youtube.service
 import pylast
 import cjson
-from party.models import Party
 
 LASTFM_API_KEY = '522cc370a4cc1ee8029e065e08a168fb'
 LASTFM_API_SECRET = 'b5115b3e49d6c1db271f73146d4ef413'

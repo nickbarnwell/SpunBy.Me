@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render_to_response, redirect
 from django.template import Context, loader
+from django.core.urlresolvers import reverse
 import urllib2
 
 FACEBOOK_APP_ID = '252389068144629'
@@ -29,9 +30,9 @@ def login(request):
                 (FACEBOOK_APP_ID, OAUTH_REDIRECT_URI, FACEBOOK_API_SECRET, \
                 request.GET.get('code'))
     response = urllib2.urlopen(oauth_url).read()
-    access_token = response.split('=')[1]
+    access_token = response.split('=')[1].split('&')[0]
     request.session['access_token'] = access_token
-    return redirect('desktop.index')
+    return redirect('desktop.views.index')
 
 def party(request, slug):
   t = loader.get_template('party.html')
