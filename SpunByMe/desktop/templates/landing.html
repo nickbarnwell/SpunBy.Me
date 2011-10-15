@@ -4,7 +4,7 @@
 
 
 {% block content %}
-{% if 1 %}
+{% if user %}
 <div class='roundbox'>
 Hey {{user.first_name}}, welcome to SpunBy.Me! Ready to get started?<br><br>
 </div>
@@ -18,7 +18,7 @@ Hey {{user.first_name}}, welcome to SpunBy.Me! Ready to get started?<br><br>
 </div>
 {% else %}
 <div class='roundbox'>
-	<a href="{{login_url}}">Login with facebook</a>
+	<a href="{{login_url}}">Login with Facebook</a> to get started
 </div>
 {% endif %}
 {% endblock %}
