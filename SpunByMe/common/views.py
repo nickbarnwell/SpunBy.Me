@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from common.models import * 
 import cjson
+import urllib2
 
 
 def search(request):
@@ -50,6 +51,11 @@ def get_next_song(request, pid):
   song = party.pop()
   party.save()
   if song:
+    if 'access_token' in request.session:
+      data = urllib2.urlencode({
+        'message': 'started playing %s - %s on spunby.me' % (song.artist, song.title)
+      })
+      urllib2.urlopen('https://graph.facebook.com/me/feed?access_token=%s' % request.session['access_token'], data)
     result = cjson.encode(song.to_hash())
   else:
     result = cjson.encode({'status':'Failure'})
