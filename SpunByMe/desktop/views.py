@@ -5,7 +5,7 @@ import urllib2
 
 FACEBOOK_APP_ID = '252389068144629'
 FACEBOOK_API_SECRET = '794cb30ba61fb6609bdd81a9b61eead2'
-OAUTH_REDIRECT_URI = 'http://ryanewing.me/spunby/login/'
+OAUTH_REDIRECT_URI = 'http://spunbyme.heroku.com/login/'
 
 def index(request):
   if request.session.get('access_token', None) is None:
