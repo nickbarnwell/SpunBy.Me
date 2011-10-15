@@ -1,5 +1,6 @@
 from django.db import models
 from django.template.defaultfilters import slugify
+from django.core.exceptions import ObjectDoesNotExist
 
 import gdata.youtube, gdata.youtube.service
 import pylast
@@ -95,7 +96,10 @@ class Party(models.Model):
 
   @property
   def now_playing(self):
-    return Song.objects.get(pk=self._now_playing)
+    try:
+      return Song.objects.get(pk=self._now_playing)
+    except ObjectDoesNotExist:
+      return None
 
   def __unicode__(self):
     return '<Party: %s>' % self.name
@@ -111,9 +115,10 @@ class Party(models.Model):
   def pop(self):
     queue = sorted(QueueData.objects.filter(party=self), key=lambda s: s.confidence)
     if len(queue) > 0:
+      qd = queue[0]
       s = qd.song
       qd.delete()
-      self.now_playing = s.pk
+      self._now_playing = s.pk
       return s
     else:
       return None
