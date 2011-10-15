@@ -3,7 +3,7 @@ var currentSong = "";
 var ytplayer;
 
 $(document).ready(function() {
-  $("#searchform .btn").click(function(evt) {
+  $(".search .btn").click(function(evt) {
     return false;
   });
 });
@@ -27,7 +27,7 @@ function getQueue() {
       newSong.video_id = data[track].video_id;
       ytQueue.push(newSong);
     }
-  });
+  }); 
 };
 
 function generateEntry(track) {
