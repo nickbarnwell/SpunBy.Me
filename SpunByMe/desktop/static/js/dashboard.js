@@ -1,17 +1,23 @@
-$.getJSON('party/1/queue',function(data) {
-  console.log(data);
-});
+$(document).ready(function() {
+  $.getJSON('http://phoenix.dyn.cs.washington.edu:8000/party/1/queue',function(data) {
+    for (track in data) {
+      generateEntry(track);
+    }
+  });
+}
 
-function generateEntry(item) {
+function generateEntry(track) {
   $entry = $('<div class="entry">');
   $info = $('<div class="info">');
   $vote = $('<div class="vote">');
     $upvote = $('<div class="upvote">');
-    $votecount = $('<div class="votecount">');//10
+    $votecount = $('<div class="votecount">10</div>');//10
     $downvote = $('<div class="downvote">');
 
   $song_title = $('<h2>Around the World</h2>');
+  $song_title.text(track.title);
   $artist = $('<h3>Daft Punk</h3>');
+  $artist.text(track.artist);
 
   $upvote.appendTo($vote);
   $votecount.appendTo($vote);
@@ -20,7 +26,7 @@ function generateEntry(item) {
   $vote.appendTo($info);
   $song_title.appendTo($info);
   $artist.appendTo($info);
-  
+
   $info.appendto($entry);
 
 }
