@@ -63,6 +63,9 @@ def new_party(request):
     if form.is_valid():
       user = User.objects.get(fb_username=request.session['user'].fb_username)
       p, created = Party.objects.get_or_create(name=form.cleaned_data['name'], owner=user)
+      s=Song.add_song('The Flaming Lips', 'Test')
+      QueueData(song=s, party=p).save()
+
       return redirect(p)
     else:
       redirect
