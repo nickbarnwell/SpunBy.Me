@@ -1,2 +1,4 @@
 django
+python-cjson
+-e hg+https://code.google.com/p/pylast/#egg=pylast
 http://gdata-python-client.googlecode.com/files/gdata-2.0.14.tar.gz
