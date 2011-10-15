@@ -25,7 +25,7 @@ App.views.Viewport = Ext.extend(Ext.Carousel, {
                 xtype: 'paintingcard',
             },
 
-            items: [intialItems],
+            items: intialItems,
 			listeners: {
             	beforecardswitch: function() {
 					var me = this;
