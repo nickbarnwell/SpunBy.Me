@@ -13,13 +13,14 @@ urlpatterns = patterns('',
     ('^party/(?P<pid>\d+)/playing', 'common.views.now_playing'),
 
     #View Lines
-    ('^$', 'desktop.views.index'),
+    ('^login/', 'desktop.views.login'),
     ('^party/new', 'desktop.views.new_party'),
     ('^party/(?P<slug>\w+)', 'desktop.views.party_vote'),
     ('^party/(?P<slug>\w+)/dashboard', 'desktop.views.party_dash'),
     ('^dashboard', 'desktop.views.dashboard'),
+    ('^$', 'desktop.views.index'),
 
-    ('^login/', 'desktop.views.login'),
+
 
     #Form Lines
     # Examples:
