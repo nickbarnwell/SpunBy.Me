@@ -17,8 +17,8 @@ Hey {{user.first_name}}, welcome to SpunBy.Me! Ready to get started?<br><br>
 <div class='roundbox'><p>Or here are some of the rooms you've created previously:</p>
 <li>
 {% for room in rooms %}
-<ul><a href='{{ url room }}'>room.name</a></ul>
-{% end %}
+<ul><a href='{% url room %}'>room.name</a></ul>
+{% endfor %}
 </div>
 </div>
 {% else %}
