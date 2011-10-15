@@ -18,22 +18,22 @@
 
 <body>
 <div id="header">
-	<img src="{{STATIC_URL}}logo/logo_grey_me.png" />
-
-	<form method="get" id="searchform" action="/search">
+	<img style="float: left" src="{{STATIC_URL}}logo/logo_grey_me.png" />
+	<form method="get" id="searchform">
 		<fieldset class="search">
 			<input type="text" class="box" id="q" name="q"/>
 			<button class="btn" title="Submit Search">Search</button>
 		</fieldset>
 	</form>
-
 </div>
 <input id='party_id' type='hidden' value='1'>
 <div id="container">
+
+
 	<div class="row">
 		<div class="span12">
 			<div class="row">
-				<div class="span6">
+				<div class="span8">
 					<div id="playlist">
 						<div class="widgetheader">DJ Queue</div>
 						<!-- <div class="entry">
@@ -61,7 +61,7 @@
 					</div>
 				</div>
 
-				<div class="span6">
+				<div class="span4">
 					<div id="qrcode">
 						<img src="http://qrcode.kaywa.com/img.php?s=8&d=http%3A%2F%2Fspunby.me" alt="qrcode"  />
 					</div>
