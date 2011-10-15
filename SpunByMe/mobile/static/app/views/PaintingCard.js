@@ -38,24 +38,26 @@
                     var party = $("#party_id").val();
                     $("#vote_yes").live('click', function(e) {
                         $(this).parent().fadeOut(function(){
+                            var me = $(this);
                             $.ajax({
                                 url:'/vote/?party_id=' + party + '&song_id=' + pane.songid + '&type=up',
                                 dataType: 'json',
                                 success: function(json) {
-                                  $(this).html("This has " + json.votes + " Votes");
-                                  $(this).fadeIn();
+                                  me.html("This has " + json.votes + " Votes");
+                                  me.fadeIn();
                                 }
                             });
                         });
                     });
                     $("#vote_no").live('click', function(e) {
                         $(this).parent().fadeOut(function(){
+                            var me = $(this);
                             $.ajax({
                                 url:'/vote/?party_id=' + party + '&song_id=' + pane.songid + '&type=down',
                                 dataType: 'json',
                                 success: function(json) {
-                                  $(this).html("This has " + json.votes + " Votes");
-                                  $(this).fadeIn();
+                                  me.html("This has " + json.votes + " Votes");
+                                  me.fadeIn();
                                 }
                             });
                         });
