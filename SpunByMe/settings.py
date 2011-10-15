@@ -108,6 +108,11 @@ TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
 )
 
+SPUNBYME_APPS = (
+  'Party',
+  'Common'
+)
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -118,9 +123,10 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     'qrcode',
+    'south'
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-)
+)+SPUNBYME_APPS
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
