@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Welcome to SpunBy.Me!</title>
-</head>
+{% extends "base.html" %}
 
-<body>
-<a href="{{login_url}}">Login with facebook</a>
-</body>
-</html>
+{% block title %}Welcome to SpunBy.Me!{% endblock %}
+
+
+{% block content %}
+	<a href="{{login_url}}">Login with facebook</a>
+{% endblock %}
