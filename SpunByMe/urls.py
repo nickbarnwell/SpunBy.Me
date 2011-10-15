@@ -13,7 +13,7 @@ urlpatterns = patterns('',
     ('^party/(?P<slug>\w+)/', 'desktop.views.party'),
     ('^dashboard/', 'desktop.views.dashboard'),
     ('^login/', 'desktop.views.login'),
-    ('', 'desktop.views.index'),
+    ('$', 'desktop.views.index'),
     # Examples:
     # url(r'^$', 'SpunByMe.views.home', name='home'),
     # url(r'^SpunByMe/', include('SpunByMe.foo.urls')),
@@ -24,3 +24,9 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
 )
+
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
+# ... the rest of your URLconf here ...
+
+urlpatterns += staticfiles_urlpatterns()
