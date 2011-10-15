@@ -1,6 +1,10 @@
 from django.db import models
 # Create your models here.
 
+class User(models.Model):
+  first_name = models.CharField(blank=False, max_length=255)
+  last_name = models.CharField(blank=False, max_length=255)
+
 class Song(models.Model):
   title = models.CharField(blank=False, max_length=255)
   artist = models.CharField(blank=False, max_length=255)
