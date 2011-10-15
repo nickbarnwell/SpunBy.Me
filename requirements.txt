@@ -1,2 +1,3 @@
 django
 django-qrcode
+http://gdata-python-client.googlecode.com/files/gdata-2.0.14.tar.gz
