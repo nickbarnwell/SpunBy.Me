@@ -19,6 +19,14 @@
 <body>
 <div id="header">
 	<img src="{{STATIC_URL}}logo/logo_grey_me.png" />
+
+	<form method="get" id="searchform" action="/search">
+		<fieldset class="search">
+			<input type="text" class="box" id="q" name="q"/>
+			<button class="btn" title="Submit Search">Search</button>
+		</fieldset>
+	</form>
+
 </div>
 <input id='party_id' type='hidden' value='1'>
 <div id="container">
