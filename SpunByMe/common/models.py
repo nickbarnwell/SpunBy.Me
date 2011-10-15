@@ -4,6 +4,8 @@ from django.db import models
 import gdata.youtube
 import gdata.youtube.service
 import pylast
+import math
+
 
 LASTFM_API_KEY = '522cc370a4cc1ee8029e065e08a168fb'
 LASTFM_API_SECRET = 'b5115b3e49d6c1db271f73146d4ef413'
@@ -56,6 +58,9 @@ class Party(models.Model):
   created_at = models.DateTimeField(auto_now_add=True, blank=False)
   songs = models.ManyToManyField(Song, through='QueueData')
 
+  def __unicode__(self):
+    return self.name
+
   @property
   def expired(self):
     return datetime.datetime.now() >= self.created_at+datetime.timedelta(24)
@@ -65,4 +70,37 @@ class QueueData(models.Model):
   party = models.ForeignKey(Party, blank=False)
   added_at = models.DateTimeField(auto_now_add=True, blank=False)
   upvotes = models.IntegerField(default=1, blank=False)
-  downvotes = models.IntegerField(default=1, blank=False)
+  downvotes = models.IntegerField(default=0, blank=False)
+
+  def vote(self, vtype):
+    if vtype == 'up':
+      votes = self.upvotes += 1
+    elif vtype == 'down':
+      votes = self.downvotes -= 1
+    return votes
+
+  def find_by_party_song(pid, sid):
+    objs = QueueData.objects.filter(song=Song.get(pk=sid), party=Party.get())
+    if objs.count() != 0:
+      return objs[0]
+
+  def _confidence(self):
+    n = self.upvotes + self.downvotes
+
+    if n == 0:
+      return 0
+
+    z = 1.0
+    phat = float(self.upvotes) / n
+    return math.sqrt(phat+z*z/(2*n)-z*((phat*(1-phat)+z*z/(4*n))/n))/(1+z*z/n)
+  
+  @property
+  def confidence(self):
+    if self.upvotes - self.downvotes == 0:
+      return 0
+    else:
+      _confidence(ups, downs)
+      return _confidence(ups, downs)
+  
+  def __unicode__(self):
+    return "Party: %s -- Song: %s" % (self.party, self.song)
