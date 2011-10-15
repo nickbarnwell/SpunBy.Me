@@ -1,5 +1,4 @@
-# Django settings for SpunByMe project.
-import os
+#Django settings for SpunByMe project.
 
 PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
 
