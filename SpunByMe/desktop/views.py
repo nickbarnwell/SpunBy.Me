@@ -26,7 +26,9 @@ def dashboard(request):
 
 def party_dash(request, slug):
   party = Party.objects.get(slug=slug)
-  return render_to_response('dashboard.html', RequestContext(request, {'pid':party.pk}))  
+  if request.session['user'] != party.owner:
+    return HttpResponse('Sorry, you\'re not authorized to view this page')
+  return render_to_response('dashboard.html', RequestContext(request, {'party':party}))
 
 def login(request):
   if request.GET.get('error') is not None:
