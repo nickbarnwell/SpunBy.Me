@@ -12,6 +12,7 @@ LASTFM_API_KEY = '522cc370a4cc1ee8029e065e08a168fb'
 LASTFM_API_SECRET = 'b5115b3e49d6c1db271f73146d4ef413'
 YOUTUBE_DEVELOPER_KEY = 'AI39si6AP91ntgKKeVQCWuRve6O-eLOunrtzdufBwlXX3HpiPg5HmrzX6M8G4iMwhBf6llht20idsxzpe9o_W41sRnBXXq7UcQ'
 ECHONEST_API_KEY = '7DDYRFE8SFUQ2RN2B'
+DEFAULT_ALBUMART_URL = 'http://spunby.me/static/noalbumart.png'
 
 class User(models.Model):
   first_name = models.CharField(blank=False, max_length=255)
@@ -43,15 +44,15 @@ class Song(models.Model):
     return [dict(title=t.get_title(), artist=str(t.get_artist())) for t in tracks]
 
   def load_albumart(self):
-    api_endpoint = 'http://developer.echonest.com/api/v4/song/search?api_key=%s&format=json&results=1&artist=%s&title=%s&bucket=id:7digital-US&bucket=audio_summary&bucket=tracks' % (ECHONEST_API_KEY, self.artist, self.title)
+    api_endpoint = 'http://developer.echonest.com/api/v4/song/search?api_key=%s&format=json&results=1&artist=%s&title=%s&bucket=id:7digital-US&bucket=audio_summary&bucket=tracks' % (ECHONEST_API_KEY, urllib2.quote(self.artist), urllib2.quote(self.title))
     result = cjson.decode(urllib2.urlopen(api_endpoint).read())
     try:
       self.albumart_url = result['response']['songs'][0]['tracks'][0]['release_image']
-      return True
     except KeyError:
-      return False
+      self.albumart_url = DEFAULT_ALBUMART_URL
     except IndexError:
-      return False
+      self.albumart_url = DEFAULT_ALBUMART_URL
+    return True
   
   def load_video_id(self):
     yt_service = gdata.youtube.service.YouTubeService()
