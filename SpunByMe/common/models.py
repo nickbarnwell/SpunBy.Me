@@ -1,4 +1,5 @@
 from django.db import models
+from django.template.defaultfilters import slugify
 
 import gdata.youtube, gdata.youtube.service
 import pylast
@@ -55,9 +56,10 @@ class Song(models.Model):
     return {'title':self.title, 'artist':self.artist, 'url':self.swf_url}
 
 class Party(models.Model):
-  name = models.CharField(max_length=50)
+  name = models.CharField(max_length=50, unique=True)
   created_at = models.DateTimeField(auto_now_add=True, blank=False)
   songs = models.ManyToManyField(Song, through='QueueData')
+  slug = models.SlugField(editable=False)
 
   def __unicode__(self):
     return self.name
@@ -78,6 +80,12 @@ class Party(models.Model):
   @property
   def expired(self):
     return datetime.datetime.now() >= self.created_at+datetime.timedelta(24)
+
+  def save(self, *args, **kwargs):
+    if not self.id:
+        self.slug = slugify(self.slug)
+        super(Party, self).save(*args, **kwargs)
+
 
 class QueueData(models.Model):
   song = models.ForeignKey(Song, blank=False)
