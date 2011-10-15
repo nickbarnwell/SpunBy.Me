@@ -19,8 +19,6 @@ function getData() {
       newSong.video_id = data[track].video_id;
       ytQueue.push(newSong);
     }
-    currentSong = ytQueue.pop();
-    loadVideo(currentSong);
   });
 };
 
@@ -83,7 +81,13 @@ function onYouTubePlayerReady(playerId) {
 }
 
 function processStateChange(code) {
-  console.log(code);
+    if (code === 5) {
+      if (ytQueue.length > 0) {
+        current.html.fadeOut();
+        currentSong = ytQueue.pop();
+        loadVideo(currentSong);
+      }
+  }
 }
 
 // The "main method" of this sample. Called when someone clicks "Run".
@@ -100,5 +104,9 @@ function loadPlayer(videoID) {
 function _run() {
   loadPlayer("ylLzyHk54Z0");
   getData();
+  if (ytQueue.length > 0) {
+    currentSong = ytQueue.pop();
+    loadVideo(currentSong);
+  } 
 }
 google.setOnLoadCallback(_run);
