@@ -9,6 +9,7 @@ App.views.Viewport = Ext.extend(Ext.Carousel, {
             success: function(json) {
             	console.log(json)
                 for (var song in json){
+                	song = json[song];
                 	intialItems.push({
 					slug: '',
 					title: song['title'],
