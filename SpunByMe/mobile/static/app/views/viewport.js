@@ -26,8 +26,7 @@ App.views.Viewport = Ext.extend(Ext.Carousel, {
 
             defaults: {
                 xtype: 'paintingcard',
-            },
-
+            },            
             items: intialItems,
 			listeners: {
             	beforecardswitch: function() {
@@ -54,5 +53,6 @@ App.views.Viewport = Ext.extend(Ext.Carousel, {
         	}
         });
         App.views.Viewport.superclass.initComponent.apply(this, arguments);
+        console.log(intialItems); console.log(items);
     }
 });
