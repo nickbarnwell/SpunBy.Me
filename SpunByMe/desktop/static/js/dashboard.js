@@ -3,8 +3,8 @@ var currentSong = "";
 var ytplayer;
 
 $(document).ready(function() {
-  $("#searchform .btn").click(function() {
-    $.modal("<div><h1>SimpleModal</h1></div>");
+  $("#searchform .btn").click(function(evt) {
+    return false;
   });
 });
 
