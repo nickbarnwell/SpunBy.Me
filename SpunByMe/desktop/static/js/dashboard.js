@@ -22,13 +22,13 @@ $(document).ready(function() {
     });
     return false;
   });
-  $("#skip").click(function(evt) {
+  $("#skip").live('click',function(evt) {
     evt.preventDefault();
     var pid = $('#party_id').val();
-    $.getJSON('/party/'+pid+'/skip', function() {
+    $.getJSON('/party/'+pid+'/skip', function(data) {
       getQueue();
-    })
-  })
+    });
+  });
 });
 
 function SongEntry() {
