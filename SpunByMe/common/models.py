@@ -11,6 +11,9 @@ LASTFM_API_KEY = '522cc370a4cc1ee8029e065e08a168fb'
 LASTFM_API_SECRET = 'b5115b3e49d6c1db271f73146d4ef413'
 YOUTUBE_DEVELOPER_KEY = 'AI39si6AP91ntgKKeVQCWuRve6O-eLOunrtzdufBwlXX3HpiPg5HmrzX6M8G4iMwhBf6llht20idsxzpe9o_W41sRnBXXq7UcQ'
 
+class User(models.Model):
+  first_name = models.CharField(blank=False, max_length=255)
+  last_name = models.CharField(blank=False, max_length=255)
 
 class Song(models.Model):
   title = models.CharField(blank=False, max_length=255)
