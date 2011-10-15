@@ -78,6 +78,11 @@ function onPlayerError(errorCode) {
 function onYouTubePlayerReady(playerId) {
   ytplayer = document.getElementById("ytPlayer");
   ytplayer.addEventListener("onError", "onPlayerError");
+  ytplayer.addEventListener("onStateChange", "processStateChange");
+}
+
+function processStateChange(code) {
+  console.log(code);
 }
 
 // The "main method" of this sample. Called when someone clicks "Run".
