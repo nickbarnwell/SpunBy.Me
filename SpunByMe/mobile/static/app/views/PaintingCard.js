@@ -4,7 +4,7 @@
         
         imageCard = {
             id:  'image_' + pane.slug,
-            cls: 'painting ' + pane.slug,
+            cls: 'painting ' + pane.slug + '" style="background-image: url(\'' + pane.albumart + "';" + '"',
             styleHtmlContent: true,
             tpl: [
                 "<div>",
@@ -19,12 +19,12 @@
             styleHtmlContent: true,
             tpl: [
                 "<div>",
-                "  <span id=\"voting\">Did you like this song?: <a id=\"vote_yes\">yes</a> | <a id=\"vote_no\">no</a></span>",
+                "  <span class=\"voting\">Did you like this song?: <a class=\"vote_yes\">yes</a> | <a class=\"vote_no\">no</a></span>",
 				'  <br />',
 				'<fieldset class="search">',
-				'<input type="text" class="box" id="q" name="q" value="Enter a Song or Artist" onclick="if(this.value == \'Enter a Song or Artist\') {this.value = \'\';}" onkeydown="this.style.color = \'#000000\';" />',
+				'<input type="text" class="box" class="q" name="q" value="Enter a Song or Artist" onclick="if(this.value == \'Enter a Song or Artist\') {this.value = \'\';}" onkeydown="this.style.color = \'#000000\';" />',
 				'<button class="btn" title="Submit Search">Search</button>',
-				'</fieldset><div id="queryresults"></div>',
+				'</fieldset><div class="queryresults"></div>',
 				"</div>"
             ]
         },
@@ -36,33 +36,36 @@
                     pane.setActiveItem('info_' + pane.slug);
                     this.setText('Album Art');
                     var party = $("#party_id").val();
-                    $("#vote_yes").live('click', function(e) {
+                    $(".vote_yes").unbind('click');
+                    $(".vote_yes").bind('click', function(e) {
                         $(this).parent().fadeOut(function(){
-                            var me = $(this);
+                            var me = this;
                             $.ajax({
                                 url:'/vote/?party_id=' + party + '&song_id=' + pane.songid + '&type=up',
                                 dataType: 'json',
                                 success: function(json) {
-                                  me.html("This has " + json.votes + " Votes");
-                                  me.fadeIn();
+                                  $(me).html("This has " + json.votes + " Votes");
+                                  $(me).fadeIn();
                                 }
                             });
                         });
                     });
-                    $("#vote_no").live('click', function(e) {
+                    $(".vote_no").unbind('click');
+                    $(".vote_no").bind('click', function(e) {
                         $(this).parent().fadeOut(function(){
-                            var me = $(this);
+                            var me = this;
                             $.ajax({
                                 url:'/vote/?party_id=' + party + '&song_id=' + pane.songid + '&type=down',
                                 dataType: 'json',
                                 success: function(json) {
-                                  me.html("This has " + json.votes + " Votes");
-                                  me.fadeIn();
+                                  $(me).html("This has " + json.votes + " Votes");
+                                  $(me).fadeIn();
                                 }
                             });
                         });
                     });
-                    $('#q').bind('keypress', function(e) {
+                    $('.q').bind('keypress', function(e) {
+                        var me = this;
                         if(e.keyCode==13){
                             $.ajax({
                             async: false,
@@ -75,14 +78,15 @@
                                     html += '<li><a href="/party/' + party + '/add_song?artist=' + song['artist'] + '&amp;title=' + song['title']
                                     + '">' + song['title'] + ' - ' + song['artist'] + '</a></li>';
                                 }
-                                $("#queryresults").html(html + '</ul>');
+                                $(me).parent().parent().child(".queryresults").html(html + '</ul>');
                             }
                         });
                         }
                     });
-                    $('.search .btn').live('click', function(e) {
-                        if(e.keyCode==13){
-                            $.ajax({
+                    $(".search .btn").unbind('click');
+                    $('.search .btn').bind('click', function(e) {
+                        var me = this;
+                        $.ajax({
                             url: '/search/?q=' + $(this).val() + '/',
                             async: false,
                             dataType: 'json',
@@ -90,14 +94,12 @@
                                 var html = '<ul>';
                                 for (song in json){
                                     var song = json[song];
-                                 html += '<li><a href="/party/' + party + '/add_song?artist=' + song['artist'] + '&amp;title=' + song['title']
+                                    html += '<li><a href="/party/' + party + '/add_song?artist=' + song['artist'] + '&amp;title=' + song['title']
                                     + '">' + song['title'] + ' - ' + song['artist'] + '</a></li>';
-        
                                 }
-                                $("#queryresults").html(html + '</ul>');
+                                $(me).parent().parent().child(".queryresults").html(html + '</ul>');
                             }
                         });
-                        }
                     });
 
 

@@ -8,7 +8,6 @@ App.views.Viewport = Ext.extend(Ext.Carousel, {
             dataType: 'json',
             async: false,
             success: function(json) {
-            	console.log(json);
                 for(song in json) {
                 	var idx = song;
                 	var song = json[song];
@@ -19,14 +18,12 @@ App.views.Viewport = Ext.extend(Ext.Carousel, {
 					songid: song['song_id'],
 					albumart: song['albumart']
 				});
-				console.log(song['albumart'])
             }}
         });
-        console.log(initialItems)
         Ext.apply(this, {
 
             defaults: {
-                xtype: 'paintingcard',
+                xtype: 'paintingcard'
             },
 
             items: initialItems.slice(0,-2),

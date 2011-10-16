@@ -93,20 +93,20 @@ fieldset.search {
 #embed {
   margin-top: 20px;
 }
-#voting a:hover {
+.voting a:hover {
     opacity: 1;
 }
-#vote_no {
+.vote_no {
   opacity: .8;
   color: red;
   font-weight: bold;
 }
-#vote_yes {
+.vote_yes {
   color: green;
   opacity: .8;
   font-weight: bold;
 }
 
-ul,li {
-  list-style: none;
+.queryresults ul, .queryresults li {
+    list-style: none !important;
 }
