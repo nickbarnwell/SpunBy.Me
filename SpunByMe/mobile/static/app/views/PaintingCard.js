@@ -78,7 +78,7 @@
                                     html += '<li><a href="/party/' + party + '/add_song?artist=' + song['artist'] + '&amp;title=' + song['title']
                                     + '">' + song['title'] + ' - ' + song['artist'] + '</a></li>';
                                 }
-                                $(me).parent().parent().child(".queryresults").html(html + '</ul>');
+                                $(me).parent().parent().children(".queryresults").html(html + '</ul>');
                             }
                         });
                         }
@@ -97,7 +97,7 @@
                                     html += '<li><a href="/party/' + party + '/add_song?artist=' + song['artist'] + '&amp;title=' + song['title']
                                     + '">' + song['title'] + ' - ' + song['artist'] + '</a></li>';
                                 }
-                                $(me).parent().parent().child(".queryresults").html(html + '</ul>');
+                                $(me).parent().parent().children(".queryresults").html(html + '</ul>');
                             }
                         });
                     });
