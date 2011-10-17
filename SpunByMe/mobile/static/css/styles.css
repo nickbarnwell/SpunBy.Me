@@ -7,6 +7,11 @@ html, .x-fullscreen {
   background-size: contain;
   background-position: 50% 0;
   background-image: url('http://spunby.me/static/noalbumart.png');
+
+}
+
+ul, li {
+  list-style: none;
 }
 
 .paintingcard {

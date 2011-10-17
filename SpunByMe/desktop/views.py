@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.template import Context, RequestContext, loader
 import urllib2
-from common.models import Party, User
+from common.models import *
 import cjson
 from desktop.forms import PartyForm
 
@@ -63,8 +63,6 @@ def new_party(request):
     if form.is_valid():
       user = User.objects.get(fb_username=request.session['user'].fb_username)
       p, created = Party.objects.get_or_create(name=form.cleaned_data['name'], owner=user)
-      s=Song.add_song('The Flaming Lips', 'Test')
-      QueueData(song=s, party=p).save()
 
       return redirect(p)
     else:

@@ -22,6 +22,10 @@ $(document).ready(function() {
     });
     return false;
   });
+  $("#skip").live('click',function(evt) {
+    evt.preventDefault();    
+    getNextSong();
+  });
 });
 
 function SongEntry() {
@@ -100,7 +104,8 @@ function loadVideo(songEntry) {
 
 // This function is called when an error is thrown by the player
 function onPlayerError(errorCode) {
-  alert("An error occured of type:" + errorCode);
+  console.log("An error occured of type:" + errorCode);
+  getNextSong();
 }
 
 // This function is automatically called by the player once it loads
