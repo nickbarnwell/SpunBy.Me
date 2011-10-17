@@ -3,8 +3,9 @@
         var pane = this,
         
         imageCard = {
-            id:  'image_' + pane.slug + '" style="background-image: url(\'' + pane.albumart + "');",
-            cls: 'painting'
+            id:  'image_' + pane.slug,
+            cls: 'painting ' + pane.slug,
+            style: { background: "url('" + pane.albumart + "');" }
         },
 
         infoCard = {
