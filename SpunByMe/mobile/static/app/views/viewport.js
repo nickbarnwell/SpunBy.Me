@@ -52,7 +52,6 @@ App.views.Viewport = Ext.extend(Ext.Carousel, {
             	}
         	}
         });
-        console.log(initialItems)
         App.views.Viewport.superclass.initComponent.apply(this, arguments);
     }
 });
