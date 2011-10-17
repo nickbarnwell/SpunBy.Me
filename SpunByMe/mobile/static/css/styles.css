@@ -98,11 +98,11 @@ fieldset.search {
 }
 .vote_no {
   opacity: .8;
-  color: red;
+  color: red !important;
   font-weight: bold;
 }
 .vote_yes {
-  color: green;
+  color: green !important;
   opacity: .8;
   font-weight: bold;
 }

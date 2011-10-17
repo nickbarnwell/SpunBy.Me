@@ -3,14 +3,8 @@
         var pane = this,
         
         imageCard = {
-            id:  'image_' + pane.slug,
-            cls: 'painting ' + pane.slug + '" style="background-image: url(\'' + pane.albumart + "';" + '"',
-            styleHtmlContent: true,
-            tpl: [
-                "<div>",
-                '<img src="' + pane.albumart + '"/>',
-                "</div>"
-            ]
+            id:  'image_' + pane.slug + '" style="background-image: url(\'' + pane.albumart + "');",
+            cls: 'painting'
         },
 
         infoCard = {
@@ -22,7 +16,7 @@
                 "  <span class=\"voting\">Did you like this song?: <a class=\"vote_yes\">yes</a> | <a class=\"vote_no\">no</a></span>",
 				'  <br />',
 				'<fieldset class="search">',
-				'<input type="text" class="box" class="q" name="q" value="Enter a Song or Artist" onclick="if(this.value == \'Enter a Song or Artist\') {this.value = \'\';}" onkeydown="this.style.color = \'#000000\';" />',
+				'<input type="text" class="box q" name="q" value="Enter a Song or Artist" onclick="if(this.value == \'Enter a Song or Artist\') {this.value = \'\';}" onkeydown="this.style.color = \'#000000\';" />',
 				'<button class="btn" title="Submit Search">Search</button>',
 				'</fieldset><div class="queryresults"></div>',
 				"</div>"
@@ -64,19 +58,21 @@
                             });
                         });
                     });
+                    $('.q').unbind('keypress');
                     $('.q').bind('keypress', function(e) {
                         var me = this;
                         if(e.keyCode==13){
                             $.ajax({
-                            async: false,
-                            url: '/search/?q=' + $(this).val() + '/',
+                            url: '/search/?q=' + $(me).val() + '/',
                             dataType: 'json',
                             success: function(json) {
                                 var html = '<ul>';
-                                for (song in json){
-                                    var song = json[song];
-                                    html += '<li><a href="/party/' + party + '/add_song?artist=' + song['artist'] + '&amp;title=' + song['title']
-                                    + '">' + song['title'] + ' - ' + song['artist'] + '</a></li>';
+                                for (var song in json){
+                                    if (json.hasOwnProperty(song)) {
+                                        song = json[song];
+                                        html += '<li><a href="/party/' + party + '/add_song?artist=' + song['artist'] + '&amp;title=' + song['title']
+                                        + '">' + song['title'] + ' - ' + song['artist'] + '</a></li>';
+                                    }
                                 }
                                 $(me).parent().parent().children(".queryresults").html(html + '</ul>');
                             }
@@ -87,15 +83,16 @@
                     $('.search .btn').bind('click', function(e) {
                         var me = this;
                         $.ajax({
-                            url: '/search/?q=' + $(this).val() + '/',
-                            async: false,
+                            url: '/search/?q=' + $(me).parent().children(".box").val() + '/',
                             dataType: 'json',
                             success: function(json) {
                                 var html = '<ul>';
-                                for (song in json){
-                                    var song = json[song];
-                                    html += '<li><a href="/party/' + party + '/add_song?artist=' + song['artist'] + '&amp;title=' + song['title']
-                                    + '">' + song['title'] + ' - ' + song['artist'] + '</a></li>';
+                                for (var song in json){
+                                    if (json.hasOwnProperty(song)) {
+                                        song = json[song];
+                                        html += '<li><a href="/party/' + party + '/add_song?artist=' + song['artist'] + '&amp;title=' + song['title']
+                                        + '">' + song['title'] + ' - ' + song['artist'] + '</a></li>';
+                                    }
                                 }
                                 $(me).parent().parent().children(".queryresults").html(html + '</ul>');
                             }
