@@ -5,6 +5,7 @@
         imageCard = {
             id:  'image_' + pane.slug,
             cls: 'painting ' + pane.slug,
+            autoLoad: true,
             style: "background-image: url('" + pane.albumart + "');"
         },
 
