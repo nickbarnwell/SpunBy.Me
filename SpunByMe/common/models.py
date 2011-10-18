@@ -117,7 +117,7 @@ class Party(models.Model):
     return '/party/%s' % self.slug
     
   def pop(self):
-    queue = sorted(QueueData.objects.filter(party=self), key=lambda s: s.confidence)
+    queue = sorted(QueueData.objects.filter(party=self), key=lambda s: s.confidence, reverse=True)
     if len(queue) > 0:
       qd = queue[0]
       s = qd.song
