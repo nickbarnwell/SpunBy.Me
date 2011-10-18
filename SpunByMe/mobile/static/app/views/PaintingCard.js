@@ -5,7 +5,7 @@
         imageCard = {
             id:  'image_' + pane.slug,
             cls: 'painting ' + pane.slug,
-            style: "background-image: url(test);"
+            style: "background-image: url('" + pane.albumart + "');"
         },
 
         infoCard = {
