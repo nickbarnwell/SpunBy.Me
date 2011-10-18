@@ -106,7 +106,7 @@ class Party(models.Model):
   
   @property
   def sorted_queue(self):
-    return sorted(QueueData.objects.filter(party=self), key=lambda s: s.confidence)
+    return sorted(QueueData.objects.filter(party=self), key=lambda s: s.confidence, reverse=True)
   
   @property
   def long_viewer_url(self):

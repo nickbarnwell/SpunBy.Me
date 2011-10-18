@@ -40,10 +40,10 @@
                                 dataType: 'json',
                                 success: function(json) {
                                   $(me).html("This has " + json.votes + " Votes");
-                                  $(me).fadeIn();
                                 }
                             });
                         });
+                        $(this).parent().fadeIn();
                     });
                     $(".vote_no").unbind('click');
                     $(".vote_no").bind('click', function(e) {
@@ -54,10 +54,10 @@
                                 dataType: 'json',
                                 success: function(json) {
                                   $(me).html("This has " + json.votes + " Votes");
-                                  $(me).fadeIn();
                                 }
                             });
                         });
+                        $(this).parent().fadeIn();
                     });
                     $('.q').unbind('keypress');
                     $('.q').bind('keypress', function(e) {
