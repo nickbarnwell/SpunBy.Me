@@ -3,17 +3,20 @@
         var pane = this,
         
         imageCard = {
-            xtype: 'panel',
             id:  'image_' + pane.slug,
             cls: 'painting ' + pane.slug,
-            style: { background: "url('" + pane.albumart + "');" }
+            config:{
+                style: { background: "url('" + pane.albumart + "');" }
+            }
         },
 
         infoCard = {
             id: 'info_' + pane.slug,
             cls: 'infocard',
             styleHtmlContent: true,
-            scrollable: true,
+            config: {
+                scrollable: true
+            },
             tpl: [
                 "<div>",
                 "  <span class=\"voting\">Did you like this song?: <a class=\"vote_yes\">yes</a> | <a class=\"vote_no\">no</a></span>",
