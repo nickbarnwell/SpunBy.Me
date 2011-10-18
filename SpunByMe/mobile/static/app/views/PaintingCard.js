@@ -33,30 +33,36 @@
                     var party = $("#party_id").val();
                     $(".vote_yes").unbind('click');
                     $(".vote_yes").bind('click', function(e) {
+                        var html = "the vote was successful."
                         $(this).parent().fadeOut(function(){
-                            var me = this;
                             $.ajax({
                                 url:'/vote/?party_id=' + party + '&song_id=' + pane.songid + '&type=up',
                                 dataType: 'json',
+                                async: false,
                                 success: function(json) {
-                                  $(me).html("This has " + json.votes + " Votes");
+                                   html = "This has " + json.votes + " Votes";
                                 }
                             });
                         });
+                        $(this).parent().html(html);
                         $(this).parent().fadeIn();
                     });
                     $(".vote_no").unbind('click');
                     $(".vote_no").bind('click', function(e) {
+                        var html = "the vote was successful."
                         $(this).parent().fadeOut(function(){
                             var me = this;
                             $.ajax({
                                 url:'/vote/?party_id=' + party + '&song_id=' + pane.songid + '&type=down',
                                 dataType: 'json',
+                                async: false,
                                 success: function(json) {
-                                  $(me).html("This has " + json.votes + " Votes");
+                                    html = "This has " + json.votes + " Votes";
                                 }
                             });
+
                         });
+                        $(this).parent().html(html);
                         $(this).parent().fadeIn();
                     });
                     $('.q').unbind('keypress');
