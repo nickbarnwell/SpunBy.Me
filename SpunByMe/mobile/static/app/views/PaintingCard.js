@@ -5,18 +5,13 @@
         imageCard = {
             id:  'image_' + pane.slug,
             cls: 'painting ' + pane.slug,
-            config:{
-                style: { background: "url('" + pane.albumart + "');" }
-            }
+            style: "background-image: url(test);"
         },
 
         infoCard = {
             id: 'info_' + pane.slug,
             cls: 'infocard',
             styleHtmlContent: true,
-            config: {
-                scrollable: true
-            },
             tpl: [
                 "<div>",
                 "  <span class=\"voting\">Did you like this song?: <a class=\"vote_yes\">yes</a> | <a class=\"vote_no\">no</a></span>",
