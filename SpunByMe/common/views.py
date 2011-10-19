@@ -27,7 +27,7 @@ def vote(request):
   qd = QueueData().find_by_party_song(party_id, song_id)
   qd.vote(vtype)
   qd.save()
-  return HttpResponse('{votes:%d}' % qd.votes, mimetype='application/json')
+  return HttpResponse('{"votes":"%d"}' % qd.votes, mimetype='application/json')
 
 def now_playing(request, pid):
   party = Party.objects.get(pk=pid)
