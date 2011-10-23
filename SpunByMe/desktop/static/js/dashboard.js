@@ -144,7 +144,7 @@ function getNextSong() {
 // The "main method" of this sample. Called when someone clicks "Run".
 function loadPlayer(videoID) {
   // Lets Flash from another domain call JavaScript
-  var params = { allowScriptAccess: "always" };
+  var params = { allowScriptAccess: "always", wmode: "transparent" };
   // The element id of the Flash embed
   var atts = { id: "ytPlayer" };
   // All of the magic handled by SWFObject (http://code.google.com/p/swfobject/)
