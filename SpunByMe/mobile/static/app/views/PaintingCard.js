@@ -5,7 +5,7 @@
         imageCard = {
             id:  'image_' + pane.slug,
             cls: 'painting ' + pane.slug,
-            html: '<div style="display: block; height: 100%; background-image: url(\'"' + pane.albumart + '\')" />'
+            html: '<div style="display: block; background-repeat: no-repeat; background-size: contain; background-position: 50% 0; height: 100%; background-image: url(\'' + pane.albumart + '\')"></div>'
         },
 
         infoCard = {
